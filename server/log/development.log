@@ -2943,3 +2943,88 @@ Unpermitted parameter: description
 Completed 201 Created in 122ms (Views: 13.4ms | ActiveRecord: 6.0ms)
 
 
+Started POST "/1/products" for ::1 at 2016-12-27 10:51:00 +0000
+Processing by ProductsController#create as */*
+  Parameters: {"product"=>{"name"=>"Ring doughnut", "description"=>"With sugar coating", "product_type"=>"consumable", "reorder_level"=>123, "can_be_sold"=>true, "can_be_purchased"=>true}, "tenant_id"=>"1"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.3ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "product_type", "reorder_level", "can_be_sold", "can_be_purchased", "created_at", "updated_at", "account_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ring doughnut"], ["description", "With sugar coating"], ["product_type", "consumable"], ["reorder_level", 123], ["can_be_sold", true], ["can_be_purchased", true], ["created_at", 2016-12-27 10:51:00 UTC], ["updated_at", 2016-12-27 10:51:00 UTC], ["account_id", 1]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Product (1.9ms)
+Completed 200 OK in 65ms (Views: 19.2ms | ActiveRecord: 3.5ms)
+
+
+Started GET "/7/clients" for ::1 at 2016-12-27 12:01:11 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ClientsController#index as */*
+  Parameters: {"tenant_id"=>"7"}
+Filter chain halted as :authenticate_user rendered or redirected
+Completed 401 Unauthorized in 50ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/1/invoices" for ::1 at 2016-12-27 12:01:23 +0000
+Processing by InvoicesController#index as */*
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mInvoice Load (0.3ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."account_id" = ?[0m  [["account_id", 1]]
+  [1m[36mInvoiceLine Load (0.4ms)[0m  [1m[34mSELECT "invoice_lines".* FROM "invoice_lines" WHERE "invoice_lines"."invoice_id" IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)[0m
+[active_model_serializers] No serializer found for resource: #<InvoiceLine id: 1, invoice_id: 19, product_id: 1, description: nil, quantity: 1, discount_percentage: #<BigDecimal:7f9fa810aaa0,'0.0',9(18)>, discount_flat: #<BigDecimal:7f9fa810a910,'0.0',9(18)>, price: #<BigDecimal:7f9fa810a780,'0.1E3',9(18)>, created_at: "2016-12-27 00:38:22", updated_at: "2016-12-27 00:38:22">
+[active_model_serializers] No serializer found for resource: #<InvoiceLine id: 1, invoice_id: 19, product_id: 1, description: nil, quantity: 1, discount_percentage: #<BigDecimal:7f9fa810aaa0,'0.0',9(18)>, discount_flat: #<BigDecimal:7f9fa810a910,'0.0',9(18)>, price: #<BigDecimal:7f9fa810a780,'0.1E3',9(18)>, created_at: "2016-12-27 00:38:22", updated_at: "2016-12-27 00:38:22">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (35.02ms)
+Completed 200 OK in 156ms (Views: 85.7ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/7/clients" for ::1 at 2016-12-27 12:01:31 +0000
+Processing by ClientsController#index as */*
+  Parameters: {"tenant_id"=>"7"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+Filter chain halted as :switch_tenant rendered or redirected
+Completed 401 Unauthorized in 3ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/1/invoices" for ::1 at 2016-12-27 12:01:37 +0000
+Processing by InvoicesController#index as */*
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mInvoice Load (0.4ms)[0m  [1m[34mSELECT "invoices".* FROM "invoices" WHERE "invoices"."account_id" = ?[0m  [["account_id", 1]]
+  [1m[36mInvoiceLine Load (0.3ms)[0m  [1m[34mSELECT "invoice_lines".* FROM "invoice_lines" WHERE "invoice_lines"."invoice_id" IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)[0m
+[active_model_serializers] No serializer found for resource: #<InvoiceLine id: 1, invoice_id: 19, product_id: 1, description: nil, quantity: 1, discount_percentage: #<BigDecimal:7f9fa6837708,'0.0',9(18)>, discount_flat: #<BigDecimal:7f9fa6837550,'0.0',9(18)>, price: #<BigDecimal:7f9fa68372d0,'0.1E3',9(18)>, created_at: "2016-12-27 00:38:22", updated_at: "2016-12-27 00:38:22">
+[active_model_serializers] No serializer found for resource: #<InvoiceLine id: 1, invoice_id: 19, product_id: 1, description: nil, quantity: 1, discount_percentage: #<BigDecimal:7f9fa6837708,'0.0',9(18)>, discount_flat: #<BigDecimal:7f9fa6837550,'0.0',9(18)>, price: #<BigDecimal:7f9fa68372d0,'0.1E3',9(18)>, created_at: "2016-12-27 00:38:22", updated_at: "2016-12-27 00:38:22">
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (30.84ms)
+Completed 200 OK in 40ms (Views: 35.1ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/7/clients" for ::1 at 2016-12-27 12:01:46 +0000
+Processing by ClientsController#index as */*
+  Parameters: {"tenant_id"=>"7"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+Filter chain halted as :switch_tenant rendered or redirected
+Completed 401 Unauthorized in 3ms (Views: 0.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/7/clients" for ::1 at 2016-12-27 12:01:47 +0000
+Processing by ClientsController#index as */*
+  Parameters: {"tenant_id"=>"7"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+Filter chain halted as :switch_tenant rendered or redirected
+Completed 401 Unauthorized in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/1/clients" for ::1 at 2016-12-27 12:01:51 +0000
+Processing by ClientsController#index as */*
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Client id: 1, name: "Peter", email: "samza@mailx.com", phone_number: "0123456789", address: "some 1234 street bi", created_at: "2016-12-26 17:03:02", updated_at: "2016-12-26 17:03:02", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Client::ActiveRecord_Associations_CollectionProxy (0.41ms)
+Completed 200 OK in 21ms (Views: 13.6ms | ActiveRecord: 0.9ms)
+
+

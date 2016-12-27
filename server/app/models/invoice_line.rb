@@ -21,7 +21,9 @@
 
 class InvoiceLine < ApplicationRecord
   validates :quantity, numericality: { greater_than: 0 }
-  validates :discount_percentage, numericality: { greater_than_or_equal: 0, less_than_or_equal_to: 100 }
+  validates :discount_percentage, numericality: {
+    greater_than_or_equal: 0, less_than_or_equal_to: 100
+  }
   validates :discount_flat, numericality: { greater_than_or_equal: 0 }
   validates :price, numericality: { greater_than: 0 }
 
