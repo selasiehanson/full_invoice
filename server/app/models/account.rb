@@ -18,4 +18,5 @@ class Account < ApplicationRecord
   has_many :taxes
   has_many :clients
   has_many :products
+  has_many :invoices
 end

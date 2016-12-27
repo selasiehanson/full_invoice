@@ -5,7 +5,8 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    invoice_presenter = InvoicePresenter.new(invoice_params)
+    attrs = invoice_params.merge(account_id: current_tenant.id)
+    invoice_presenter = InvoicePresenter.new(attrs)
     if invoice_presenter.valid?
       invoice_id = invoice_presenter.save
       created_invoice = current_tenant.invoices.find(invoice_id)
@@ -19,7 +20,9 @@ class InvoicesController < ApplicationController
 
   def invoice_params
     params.fetch(:invoice, {})
-          .permit(:invoice_date, :dute_date, :notes, :client_id, :currency_id,
-                  :invoice_number, :invoice_lines)
+          .permit(:invoice_date, :due_date, :notes, :client_id, :currency_id,
+                  :invoice_number,
+                  invoice_lines: [:invoice_id, :product_id, :quantity,
+                                  :discount_percentage, :discount_flat, :price])
   end
 end

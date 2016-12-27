@@ -5,11 +5,11 @@
 #  id                  :integer          not null, primary key
 #  invoice_id          :integer
 #  product_id          :integer
-#  description         :string
+#  description         :text
 #  quantity            :integer
-#  discount_percentage :decimal(, )
-#  discount_flat       :decimal(, )
-#  price               :decimal(, )
+#  discount_percentage :decimal(19, 2)
+#  discount_flat       :decimal(19, 2)
+#  price               :decimal(19, 2)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #

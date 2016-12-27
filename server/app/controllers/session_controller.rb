@@ -1,6 +1,7 @@
 class SessionController < ApplicationController
   skip_before_action :authenticate_user
-
+  skip_before_action :switch_tenant
+  
   def register
     user = User.new(user_params)
     account = Account.new(account_params)

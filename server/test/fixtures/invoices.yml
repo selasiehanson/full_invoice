@@ -10,8 +10,8 @@
 #  notes          :text
 #  currency_id    :integer
 #  invoice_number :string
-#  total_amount   :decimal(, )
-#  total_tax      :decimal(, )
+#  total_amount   :decimal(19, 2)
+#  total_tax      :decimal(19, 2)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #

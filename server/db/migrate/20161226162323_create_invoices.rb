@@ -8,8 +8,8 @@ class CreateInvoices < ActiveRecord::Migration[5.0]
       t.text :notes
       t.references :currency, foreign_key: true
       t.string :invoice_number
-      t.decimal :total_amount
-      t.decimal :total_tax
+      t.decimal :total_amount, precision: 19, scale: 2
+      t.decimal :total_tax, precision: 19, scale: 2
 
       t.timestamps
     end

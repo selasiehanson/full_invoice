@@ -58,13 +58,13 @@ ActiveRecord::Schema.define(version: 20161226162340) do
   create_table "invoice_lines", force: :cascade do |t|
     t.integer  "invoice_id"
     t.integer  "product_id"
-    t.string   "description"
+    t.text     "description"
     t.integer  "quantity"
-    t.decimal  "discount_percentage"
-    t.decimal  "discount_flat"
-    t.decimal  "price"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.decimal  "discount_percentage", precision: 19, scale: 2
+    t.decimal  "discount_flat",       precision: 19, scale: 2
+    t.decimal  "price",               precision: 19, scale: 2
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.index ["invoice_id"], name: "index_invoice_lines_on_invoice_id"
     t.index ["product_id"], name: "index_invoice_lines_on_product_id"
   end
@@ -77,10 +77,10 @@ ActiveRecord::Schema.define(version: 20161226162340) do
     t.text     "notes"
     t.integer  "currency_id"
     t.string   "invoice_number"
-    t.decimal  "total_amount"
-    t.decimal  "total_tax"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.decimal  "total_amount",   precision: 19, scale: 2
+    t.decimal  "total_tax",      precision: 19, scale: 2
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.index ["account_id"], name: "index_invoices_on_account_id"
     t.index ["client_id"], name: "index_invoices_on_client_id"
     t.index ["currency_id"], name: "index_invoices_on_currency_id"
