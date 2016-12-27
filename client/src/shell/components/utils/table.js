@@ -11,7 +11,7 @@ export default class Table extends Component {
         event.preventDefault();
     }
 
-    renderRows(tableData, actionCols, tableFields, columnWrappers) {
+    renderRows(tableData, actionCols, tableFields, columnWrappers = {}) {
         let fields = tableFields.map(x => x.name);
 
         return tableData.map((transaction) => {

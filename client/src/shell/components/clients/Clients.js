@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Table from '../utils/table'
+import  {Link} from 'react-router';
 
 const Clients = (props) => {
     let {clients, current, children, onEditClick, onDeleteClick} = props;
@@ -13,16 +14,24 @@ const Clients = (props) => {
         ];
     return(
         <div>
-            <h2> Clients </h2>
-            <Table tableData={[]} tableFields={tableFields} />
+            <div className="content-header">
+                <span className="title"> Clients </span>
+                <span className="pull-right">
+                    <Link to="/clients/new" className="btn btn-primary"> New Client </Link>
+                </span>
+            </div>
+            <Table 
+                tableData={clients} 
+                tableFields={tableFields} />
         </div>
     )
 }
 
 const mapStateToProps = (state, ownState) => {
-    console.log(state)
+    console.log(state.clients)
+    let {all } = state.clients
     return {
-        ...state.clients,
+        clients:all,
         //transactionForm: state.form['transactions-search']
     }
 }

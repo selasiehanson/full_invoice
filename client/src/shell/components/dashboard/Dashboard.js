@@ -2,8 +2,10 @@ import React from 'react';
 
 const Dashboard = (props) => {
     return (
-        <div>
-            <h1> Dashboard Page </h1>
+        <div>            
+            <div className="content-header">
+                <span className="title"> Dashboard </span>
+            </div>
         </div>
     )
 }

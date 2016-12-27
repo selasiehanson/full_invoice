@@ -26,11 +26,11 @@ const initialState = {
         },
         {
             link: '/products',
-            text: 'products'
+            text: 'Products'
         },
         {
             link: '/invoices',
-            text: 'invoices'
+            text: 'Invoices'
         },
         {
             link: '/reports',

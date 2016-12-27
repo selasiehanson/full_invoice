@@ -3028,3 +3028,27 @@ No serializer found for resource: #<Client id: 1, name: "Peter", email: "samza@m
 Completed 200 OK in 21ms (Views: 13.6ms | ActiveRecord: 0.9ms)
 
 
+Started POST "/1/products" for ::1 at 2016-12-27 12:12:53 +0000
+Processing by ProductsController#create as */*
+  Parameters: {"product"=>{"name"=>"Ring doughnut", "description"=>"With sugar coating", "product_type"=>"consumable", "reorder_level"=>123, "can_be_sold"=>true, "can_be_purchased"=>true}, "tenant_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAccount Load (0.4ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "product_type", "reorder_level", "can_be_sold", "can_be_purchased", "created_at", "updated_at", "account_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ring doughnut"], ["description", "With sugar coating"], ["product_type", "consumable"], ["reorder_level", 123], ["can_be_sold", true], ["can_be_purchased", true], ["created_at", 2016-12-27 12:12:53 UTC], ["updated_at", 2016-12-27 12:12:53 UTC], ["account_id", 1]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Product (2.65ms)
+Completed 200 OK in 50ms (Views: 13.6ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/1/products" for ::1 at 2016-12-27 12:13:10 +0000
+Processing by ProductsController#index as */*
+  Parameters: {"tenant_id"=>"1", "product"=>{}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (0.82ms)
+Completed 200 OK in 10ms (Views: 4.2ms | ActiveRecord: 0.4ms)
+
+

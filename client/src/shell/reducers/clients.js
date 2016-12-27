@@ -23,8 +23,8 @@ const initialState = {
     editMode: "",
     current: null,
     all: [
-        { id: 1, name: "kofi", phone: "233 204 565 6567" },
-        { id: 2, name: "ama", phone: "233 204 897 1234" }
+        { id: 1, name: "kofi", phone_number: "233 204 565 6567", email: "kofi@mail.com", address: "123 cool street" },
+        { id: 2, name: "ama", phone_number: "233 204 897 1234", email: "ama@mail.com", address: "456 cool street" }
     ]
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Table from '../utils/table'
+import Table from '../utils/table';
+import {Link} from 'react-router';
 
 const InvoiceList = (props) => {
     let {clients, current, children, onEditClick, onDeleteClick} = props;
@@ -14,7 +15,12 @@ const InvoiceList = (props) => {
         ];
     return(
         <div>
-            <h2> Invoices </h2>
+            <div className="content-header">
+                <span className="title"> Invoices </span>
+                <span className="pull-right">
+                    <Link to="/invoices/new" className="btn btn-primary"> New invoice </Link>
+                </span>
+            </div>
             <Table tableData={[]} tableFields={tableFields} />
         </div>
     )
