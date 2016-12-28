@@ -4,7 +4,8 @@ import Table from '../utils/table';
 import {Link} from 'react-router';
 
 const InvoiceList = (props) => {
-    let {clients, current, children, onEditClick, onDeleteClick} = props;
+    console.log(props)
+    let {all, current, children, onEditClick, onDeleteClick} = props;
     let tableFields = [
             { name: 'invoice_date', header: "Invoice Date" },
             { name: 'due_date', header: "Due Date" },
@@ -13,6 +14,13 @@ const InvoiceList = (props) => {
             { name: "total_tax", header: "Total Tax" },
             // { name: 'view', type: 'action', header: '', action: 'viewTransaction' }
         ];
+
+    let content = <div className="zero-items"> No invoices present, kindly add one. </div>
+    if(all.length !== 0){
+       content = <Table 
+                tableData={all} 
+                tableFields={tableFields} /> 
+    }
     return(
         <div>
             <div className="content-header">
@@ -21,7 +29,7 @@ const InvoiceList = (props) => {
                     <Link to="/invoices/new" className="btn btn-primary"> New invoice </Link>
                 </span>
             </div>
-            <Table tableData={[]} tableFields={tableFields} />
+           { content }
         </div>
     )
 }

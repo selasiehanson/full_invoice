@@ -4,7 +4,7 @@ import Table from '../utils/table'
 
 import {Link} from 'react-router';
 const ProductList = (props) => {
-    let {clients, current, children, onEditClick, onDeleteClick} = props;
+    let {all, current, children, onEditClick, onDeleteClick} = props;
     let tableFields = [
             { name: 'name', header: "Name" },
             { name: 'description', header: "Description" },
@@ -12,6 +12,12 @@ const ProductList = (props) => {
             { name: "reorder_level", header: "Re-Order Level" },
             // { name: 'view', type: 'action', header: '', action: 'viewTransaction' }
         ];
+    
+    let content  = <div className="zero-items"> No products present, kindly add one. </div>
+    if(all.length > 0){
+        content =  <Table tableData={all} tableFields={tableFields} />   
+    }
+
     return(
         <div>
             <div className="content-header">
@@ -20,7 +26,7 @@ const ProductList = (props) => {
                     <Link to="/products/new" className="btn btn-primary"> New Product </Link>
                 </span>
             </div>
-            <Table tableData={[]} tableFields={tableFields} />
+           { content }
         </div>
     )
 }

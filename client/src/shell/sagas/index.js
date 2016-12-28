@@ -1,21 +1,21 @@
 
 import {takeLatest } from 'redux-saga';
 import {fork} from 'redux-saga/effects';
-import {receiptsFetchList, addReceipts, getReceipts, updateReceipts} from './receipts'
+import {clientsFetchList, addClients, getClients, updateClients} from './clients'
 import {
-    SAGA_RECEIPTS_FETCH_LIST,
-    SAGA_GET_RECEIPT,
-    SAGA_ADD_RECEIPT,
-    SAGA_UPDATE_RECEIPT
+    SAGA_CLIENTS_FETCH_LIST,
+    SAGA_GET_CLIENT,
+    SAGA_ADD_CLIENT,
+    SAGA_UPDATE_CLIENT
 } from '../constants';
 /**
  * Main saga generator
 */
 export function* sagas() {
     yield[
-        fork(takeLatest, SAGA_RECEIPTS_FETCH_LIST, receiptsFetchList),
-        fork(takeLatest, SAGA_GET_RECEIPT, getReceipts),
-        fork(takeLatest, SAGA_ADD_RECEIPT, addReceipts),
-        fork(takeLatest, SAGA_UPDATE_RECEIPT, updateReceipts)
+        fork(takeLatest, SAGA_CLIENTS_FETCH_LIST, clientsFetchList),
+        fork(takeLatest, SAGA_GET_CLIENT, getClients),
+        fork(takeLatest, SAGA_ADD_CLIENT, addClients),
+        fork(takeLatest, SAGA_UPDATE_CLIENT, updateClients)
     ]
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Table from '../utils/table'
 import  {Link} from 'react-router';
 
-const Clients = (props) => {
+const ClientList = (props) => {
     let {clients, current, children, onEditClick, onDeleteClick} = props;
     let tableFields = [
             { name: 'name', header: "Name" },
@@ -12,6 +12,12 @@ const Clients = (props) => {
             { name: "address", header: "Address" },
             // { name: 'view', type: 'action', header: '', action: 'viewTransaction' }
         ];
+    let content = <span> No clients present, kindly add one. </span>
+    if(clients.length !== 0){
+       content = <Table 
+                tableData={clients} 
+                tableFields={tableFields} /> 
+    }
     return(
         <div>
             <div className="content-header">
@@ -20,9 +26,7 @@ const Clients = (props) => {
                     <Link to="/clients/new" className="btn btn-primary"> New Client </Link>
                 </span>
             </div>
-            <Table 
-                tableData={clients} 
-                tableFields={tableFields} />
+            { content }
         </div>
     )
 }
@@ -43,4 +47,4 @@ const mapDispatchToProps = (dispatch, state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Clients);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientList);
