@@ -14,24 +14,24 @@ export default class Table extends Component {
     renderRows(tableData, actionCols, tableFields, columnWrappers = {}) {
         let fields = tableFields.map(x => x.name);
 
-        return tableData.map((transaction) => {
+        return tableData.map((data, index) => {
 
             let row = fields.map((columnKey, key) => {
                 // debugger
-                let d = transaction[columnKey];
+                let itemToDisplay = data[columnKey];
                 let displayFn = columnWrappers[columnKey] ? columnWrappers[columnKey] : null;
 
                 let row =
-                    <td key={key}> {d}</td>
+                    <td key={key}> {itemToDisplay}</td>
                 if (displayFn) {
-                    row = <td key={key}> {displayFn(d)} </td>
+                    row = <td key={key}> {displayFn(itemToDisplay)} </td>
                 }
                 return row;
             });
 
             let actions = actionCols.map((x, idx) => {
 
-                let data = { data: transaction, action: x.action }
+                let data = { data: data, action: x.action }
                 return (
                     <td key={idx}>
                         <a href="" onClick={this.actionClicked.bind(this, data)}> {x.name} </a>
@@ -40,7 +40,7 @@ export default class Table extends Component {
             });
 
             return (
-                <tr key={transaction.transactionId}>
+                <tr key={index}>
                     {row}
                     {actions}
                 </tr>

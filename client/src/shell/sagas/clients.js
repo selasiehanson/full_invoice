@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import ApiFetcher from '../apis/receipts';
+import ApiFetcher from '../apis/http';
 import {
     SAGA_CLIENTS_FETCH_LIST_SUCCESS,
     SAGA_GET_CLIENT_SUCCESS,
@@ -9,7 +9,7 @@ import {
 } from '../constants';
 
 const CLIENTS = 'clients';
-export function* receiptsFetchList(action) {
+export function* clientsFetchList(action) {
     //call api to get the users
     const res = yield call(ApiFetcher.findAll, CLIENTS);
 
@@ -19,7 +19,7 @@ export function* receiptsFetchList(action) {
     });
 }
 
-export function* addClients(action) {
+export function* addClient(action) {
     const res = yield call(ApiFetcher.create, CLIENTS, action.data)
 
     yield put({

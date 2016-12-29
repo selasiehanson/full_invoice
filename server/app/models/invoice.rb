@@ -14,6 +14,7 @@
 #  total_tax      :decimal(19, 2)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  status         :string
 #
 # Indexes
 #
@@ -23,6 +24,14 @@
 #
 
 class Invoice < ApplicationRecord
+  enum status: {
+    draft: 'draft', approved: 'approved',
+    sent: 'sent',
+    unsent: 'unsent',
+    paid: 'paid',
+    overdue: 'overdue'
+  }
+
   validates :invoice_date, :due_date, presence: true
   belongs_to :account
   belongs_to :client

@@ -9,19 +9,24 @@ import Client from '../components/clients/client';
 import InvoiceList from '../components/invoices/invoice-list';
 import Invoice from '../components/invoices/invoice';
 import ProductList from '../components/products/product-list';
+import SignIn from '../components/layout/sign-in';
+import Register from '../components/layout/register';
 
 export default (
-    <Route path="/" component={Layout}>        
+    <Route path="/" component={Layout}>
+        <IndexRoute component={Dashboard} />
         <Route path="dashboard" component={Dashboard} />
         <Route path="clients">
             <IndexRoute component={ClientList} />
-            <Route path="new" component={Client}/>
+            <Route path="new" component={Client} />
         </Route>
         <Route path="invoices">
-            <IndexRoute component={InvoiceList}/>
-            <Route path="new" component={Invoice}/>
+            <IndexRoute component={InvoiceList} />
+            <Route path="new" component={Invoice} />
         </Route>
         <Route path="products" component={ProductList} />
         <Route path="reports" component={Report} />
+        <Route path="signup" component={Register} />
+        <Route path="signin" component={SignIn} />
     </Route>
 );

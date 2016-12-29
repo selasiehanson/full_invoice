@@ -3052,3 +3052,308 @@ No serializer found for resource: #<Product id: 1, name: "Peter Bread", descript
 Completed 200 OK in 10ms (Views: 4.2ms | ActiveRecord: 0.4ms)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddStatusToInvoice (20161228164423)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "invoices" ADD "status" varchar[0m
+  [1m[35mSQL (3.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20161228164423"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.9ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_account_details_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_account_details_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_account_details_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_account_details_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_clients_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_clients_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoice_lines_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoice_lines_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoice_lines_on_invoice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoice_lines_on_invoice_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoices_on_currency_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoices_on_currency_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoices_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoices_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoices_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoices_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_taxes_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_taxes_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_account_details_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_account_details_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_account_details_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_account_details_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_clients_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_clients_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoices_on_currency_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoices_on_currency_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoices_on_client_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoices_on_client_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoices_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoices_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoice_lines_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoice_lines_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_invoice_lines_on_invoice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_invoice_lines_on_invoice_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_taxes_on_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_taxes_on_account_id' AND type='index'
+[0m
+  [1m[35m (7.8ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mInvoice Load (0.2ms)[0m  [1m[34mSELECT  "invoices".* FROM "invoices" ORDER BY "invoices"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mInvoice Load (0.1ms)[0m  [1m[34mSELECT  "invoices".* FROM "invoices" ORDER BY "invoices"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCurrency Load (0.1ms)[0m  [1m[34mSELECT  "currencies".* FROM "currencies" WHERE "currencies"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInvoiceLine Load (0.1ms)[0m  [1m[34mSELECT "invoice_lines".* FROM "invoice_lines" WHERE "invoice_lines"."invoice_id" = ?[0m  [["invoice_id", 19]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "invoices" SET "total_amount" = ?, "updated_at" = ?, "status" = ? WHERE "invoices"."id" = ?[0m  [["total_amount", #<BigDecimal:7fda318b0ed0,'0.1E3',9(18)>], ["updated_at", 2016-12-28 16:46:04 UTC], ["status", "active"], ["id", 19]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mInvoice Load (0.2ms)[0m  [1m[34mSELECT  "invoices".* FROM "invoices" ORDER BY "invoices"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mInvoice Load (0.2ms)[0m  [1m[34mSELECT  "invoices".* FROM "invoices" ORDER BY "invoices"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mClient Load (0.1ms)[0m  [1m[34mSELECT  "clients".* FROM "clients" WHERE "clients"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCurrency Load (0.1ms)[0m  [1m[34mSELECT  "currencies".* FROM "currencies" WHERE "currencies"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInvoiceLine Load (0.1ms)[0m  [1m[34mSELECT "invoice_lines".* FROM "invoice_lines" WHERE "invoice_lines"."invoice_id" = ?[0m  [["invoice_id", 19]]
+  [1m[35mSQL (0.3ms)[0m  [1m[33mUPDATE "invoices" SET "updated_at" = ?, "status" = ? WHERE "invoices"."id" = ?[0m  [["updated_at", 2016-12-28 16:53:14 UTC], ["status", "draft"], ["id", 19]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "invoices" SET "updated_at" = ?, "status" = ? WHERE "invoices"."id" = ?[0m  [["updated_at", 2016-12-28 16:57:10 UTC], ["status", "approved"], ["id", 19]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mInvoice Load (0.2ms)[0m  [1m[34mSELECT  "invoices".* FROM "invoices" ORDER BY "invoices"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 22:55:12 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofimanu@Mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofimanu@Mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofimanu@Mail.com"], ["LIMIT", 1]]
+Completed 404 Not Found in 27ms (ActiveRecord: 0.4ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 22:56:35 +0000
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.comc", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.comc", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.comc"], ["LIMIT", 1]]
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 23:22:45 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"soundfever18@gmail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"soundfever18@gmail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "soundfever18@gmail.com"], ["LIMIT", 1]]
+Completed 404 Not Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 23:24:56 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofimanu@Mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofimanu@Mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofimanu@Mail.com"], ["LIMIT", 1]]
+Completed 404 Not Found in 3ms (ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 23:25:37 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofimanu@Mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofimanu@Mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofimanu@Mail.com"], ["LIMIT", 1]]
+Completed 404 Not Found in 6ms (ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 23:41:42 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"password"=>"[FILTERED]", "email"=>"kofiowusu@mail.com"}, "user_token"=>{"auth"=>{"password"=>"[FILTERED]", "email"=>"kofiowusu@mail.com"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.12ms)
+Completed 201 Created in 108ms (Views: 6.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 23:41:55 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"password"=>"[FILTERED]", "email"=>"kofiowusu@mail.com"}, "user_token"=>{"auth"=>{"password"=>"[FILTERED]", "email"=>"kofiowusu@mail.com"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.07ms)
+Completed 201 Created in 63ms (Views: 0.5ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 23:41:57 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"password"=>"[FILTERED]", "email"=>"kofiowusu@mail.com"}, "user_token"=>{"auth"=>{"password"=>"[FILTERED]", "email"=>"kofiowusu@mail.com"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.27ms)
+Completed 201 Created in 63ms (Views: 0.7ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-28 23:42:59 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.07ms)
+Completed 201 Created in 63ms (Views: 0.6ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-29 00:26:30 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (2.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (2.51ms)
+Completed 201 Created in 202ms (Views: 17.1ms | ActiveRecord: 2.5ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-29 00:27:18 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (7.58ms)
+Completed 201 Created in 153ms (Views: 22.7ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-29 01:03:30 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.12ms)
+Completed 201 Created in 112ms (Views: 5.0ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-29 01:07:06 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.08ms)
+Completed 201 Created in 63ms (Views: 0.6ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2016-12-29 01:07:42 +0000
+Processing by UserTokenController#create as HTML
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.07ms)
+Completed 201 Created in 63ms (Views: 0.5ms | ActiveRecord: 0.1ms)
+
+

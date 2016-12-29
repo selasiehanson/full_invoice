@@ -1,6 +1,5 @@
 import React from 'react';
 const renderInput = field => {
-    console.log(field)
     return (
         <div className="form-group">
             <label> {field.placeholder} </label>

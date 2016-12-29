@@ -1,6 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
-//import ''
-import 'bootstrap/dist/js/bootstrap.js'
+// import jQuery from "jquery";
+// window.$ = window.jQuery = jQuery
+// var $ = require('jquery')
+// window.$ = window.jQuery = $;
+// import 'bootstrap/dist/js/bootstrap.js'
 import 'font-awesome/css/font-awesome.css';
 import './App.css';
 import * as fn from './shell';

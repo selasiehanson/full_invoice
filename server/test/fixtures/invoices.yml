@@ -14,6 +14,7 @@
 #  total_tax      :decimal(19, 2)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  status         :string
 #
 # Indexes
 #

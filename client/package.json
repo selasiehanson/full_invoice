@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "port": "8080",
-  "proxy": "http://localhot:3001",
+  "proxy": "http://localhost:3001",
   "devDependencies": {
     "react-scripts": "0.8.4"
   },

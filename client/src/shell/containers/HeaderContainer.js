@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
 
 import Header from '../components/layout/Header'
+import { signout } from '../actions/auth';
 
 //todo fill body with items from state that should be displayed
 const mapStateToProps = (state) => {
@@ -10,7 +12,13 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        logout() {
+            console.log('logging out');
+            dispatch(signout())
+            hashHistory.push('/signin')
+        }
+    }
 }
 
 const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header)

@@ -32,7 +32,6 @@ const ClientList = (props) => {
 }
 
 const mapStateToProps = (state, ownState) => {
-    console.log(state.clients)
     let {all } = state.clients
     return {
         clients:all,

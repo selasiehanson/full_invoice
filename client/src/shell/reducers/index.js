@@ -6,6 +6,7 @@ import invoices from './invoices';
 import links from './links';
 import header from './header';
 import notification from './notifications'
+import app from './app';
 
 const contactsApp = combineReducers({
     links,
@@ -13,6 +14,7 @@ const contactsApp = combineReducers({
     header,
     invoices,
     notification,
+    app,
     form: formReducer,
     routing: routerReducer
 });

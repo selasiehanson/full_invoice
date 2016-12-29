@@ -13,6 +13,23 @@ main {
   flex: 1;
 }
 
+
+.auth-container {
+  margin-top: 100px;  
+}
+
+.auth-container .title {
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.auth-container .box {
+  background: white;
+  /*padding: 30px;*/
+  padding: 30px 10px;
+  border: 1px solid #dedede;
+}
+
 .sidebar {
     /*background: #efefef;
     position: absolute;
@@ -82,10 +99,23 @@ main {
 }
 
 .header {
-  /*padding: 10px 20px;
-  background: #2f353f;
+    padding: 10px 20px;
+    background: #2f353f;
+    color: white;
+    font-size: 18px;
+}
+
+.header .app-user {
+  font-size: 14px;
+}
+
+.header .app-user a{
+  text-decoration: none;
   color: white;
-  font-size: 18px;*/
+}
+
+.header .app-user a:hover {
+  color: #9e9e9e;
 }
 
 .app-content {
