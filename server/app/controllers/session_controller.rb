@@ -1,7 +1,7 @@
 class SessionController < ApplicationController
   skip_before_action :authenticate_user
   skip_before_action :switch_tenant
-  
+
   def register
     user = User.new(user_params)
     account = Account.new(account_params)
@@ -20,14 +20,15 @@ class SessionController < ApplicationController
       :last_name,
       :email,
       :password,
-      :password_confirmation)
+      :password_confirmation
+    )
   end
 
   def account_params
     params.require(:credentials).permit(:organization_name)
   end
 
-  #Wrap in transaction if possible
+  # Wrap in transaction if possible
   def create_account(user, account)
     User.transaction do
       user.save

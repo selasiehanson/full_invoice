@@ -3,7 +3,8 @@ import {
     CLIENTS_SHOW_NEW,
     CLIENTS_ADD,
     CLIENTS_EDIT,
-    CLIENTS_DELETE
+    CLIENTS_DELETE,
+    SAGA_CLIENTS_FETCH_LIST_SUCCESS
 } from '../constants';
 
 const contact = (state = {}, action) => {
@@ -47,9 +48,11 @@ const clients = (state = initialState, action) => {
             else {
                 return { all, current: null }
             }
-
+            break;
+        case SAGA_CLIENTS_FETCH_LIST_SUCCESS:
+            return { ...state, all: action.clients, afterSave: false }
         case CLIENTS_SHOW_NEW:
-            return {...state, current: {} }
+            return { ...state, current: {} }
         case CLIENTS_ADD:
             //console.log(state)
             var {all, current} = state;

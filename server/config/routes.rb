@@ -30,8 +30,8 @@
 #
 
 Rails.application.routes.draw do
+  get '/accounts/profile' => 'accounts#profile'
   post 'register', as: :register, to: 'session#register'
-
   post 'user_token' => 'user_token#create'
 
   resources :currencies

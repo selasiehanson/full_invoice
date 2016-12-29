@@ -2,13 +2,16 @@ import {
     APP_STATES,
     SAGA_LOGIN_SUCCESS,
     GET_APP_STATE,
-    SIGN_OUT
+    SIGN_OUT,
+    ACCOUNT_SELECTED
 } from '../constants';
 
 const initialState = {
-    state: APP_STATES.NOT_AUTHENTICATED
+    selectedAccount: null,
+    state: APP_STATES.NOT_AUTHENTICATED,
+    justSignedIn: false,
+    justSignedOut: false
 }
-
 
 function setUser(profile) {
     if (!localStorage.getItem('id_token')) {
@@ -25,6 +28,24 @@ function removeUser() {
     localStorage.removeItem('id_token');
 }
 
+function removeAccount() {
+    localStorage.removeItem('current_account');
+}
+
+function clearDetailsOnSignout() {
+    removeUser();
+    removeAccount();
+}
+
+function setCurrentAccount(accountId) {
+    localStorage.setItem('current_account', accountId);
+}
+
+function getCurrentAccount() {
+    return localStorage.getItem('current_account');
+}
+
+
 class AuthManager {
     static isLoggedIn() {
         if (localStorage.getItem('id_token')) {
@@ -36,24 +57,31 @@ class AuthManager {
 
 const app = (state = initialState, action) => {
     switch (action.type) {
+        case ACCOUNT_SELECTED:
+            console.log(action.data)
+            setCurrentAccount(action.data);
+            return { ...state, selectedAccount: action.data }
+
         case SIGN_OUT:
-            removeUser();
-            return { ...state, state: APP_STATES.NOT_AUTHENTICATED };
+            clearDetailsOnSignout();
+            return { ...state, state: APP_STATES.NOT_AUTHENTICATED, justSignedIn: false, justSignedOut: true };
+
         case GET_APP_STATE:
             if (AuthManager.isLoggedIn()) {
-                return { ...state, state: APP_STATES.AUTHENTICATED }
+                let accountId = getCurrentAccount();
+                return { ...state, selectedAccount: accountId, state: APP_STATES.AUTHENTICATED, justSignedIn: false, justSignedOut: false }
             }
-            return { ...state, state: APP_STATES.NOT_AUTHENTICATED }
-            break;
+            return { ...state, state: APP_STATES.NOT_AUTHENTICATED, justSignedIn: false, justSignedOut: false }
+
         case SAGA_LOGIN_SUCCESS:
             setToken(action.data.jwt)
-            return { ...state, state: APP_STATES.AUTHENTICATED }
-            break;
+            return { ...state, state: APP_STATES.AUTHENTICATED, justSignedIn: true, justSignedOut: false }
+
         default:
             if (AuthManager.isLoggedIn()) {
-                return { ...state, state: APP_STATES.AUTHENTICATED }
+                return { ...state, state: APP_STATES.AUTHENTICATED, justSignedIn: false, justSignedOut: false }
             }
-            return { ...state, state: APP_STATES.NOT_AUTHENTICATED };
+            return { ...state, state: APP_STATES.NOT_AUTHENTICATED, justSignedIn: false, justSignedOut: false };
     }
 }
 

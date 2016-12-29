@@ -11,11 +11,12 @@ import Invoice from '../components/invoices/invoice';
 import ProductList from '../components/products/product-list';
 import SignIn from '../components/layout/sign-in';
 import Register from '../components/layout/register';
-
+import AccountChooser from '../components/layout/account-chooser';
 export default (
     <Route path="/" component={Layout}>
         <IndexRoute component={Dashboard} />
         <Route path="dashboard" component={Dashboard} />
+        <Route path="chooser" component={AccountChooser} />
         <Route path="clients">
             <IndexRoute component={ClientList} />
             <Route path="new" component={Client} />

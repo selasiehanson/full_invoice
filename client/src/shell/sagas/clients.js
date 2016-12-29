@@ -15,7 +15,7 @@ export function* clientsFetchList(action) {
 
     yield put({
         type: SAGA_CLIENTS_FETCH_LIST_SUCCESS,
-        receipts: res.data.data
+        clients: res.data
     });
 }
 
@@ -24,7 +24,7 @@ export function* addClient(action) {
 
     yield put({
         type: SAGA_ADD_CLIENT_SUCCESS,
-        receipt: res.data.data
+        client: res.data.data
     });
 }
 
@@ -33,7 +33,7 @@ export function* getClients(action) {
 
     yield put({
         type: SAGA_GET_CLIENT_SUCCESS,
-        receipt: res.data.data
+        client: res.data.data
     });
 }
 
@@ -42,6 +42,6 @@ export function* updateClients(action) {
 
     yield put({
         type: SAGA_UPDATE_CLIENT_SUCCESS,
-        receipt: res.data.data
+        client: res.data.data
     });
 }

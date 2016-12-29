@@ -3,7 +3,7 @@ import MainContainer from '../../containers/MainContainer';
 import HeaderContainer from '../../containers/HeaderContainer';
 import SideBarContainer from '../../containers/SideBarContainer'
 import { connect } from 'react-redux';
-import { APP_STATES } from '../../constants';
+import { APP_STATES, ACCOUNT_SET } from '../../constants';
 import SignIn from './sign-in';
 import { checkAppState } from '../../actions/auth';
 import { hashHistory } from 'react-router';
@@ -12,40 +12,41 @@ import { hashHistory } from 'react-router';
 class Layout extends Component {
 
     componentWillMount() {
-        // console.log(this.props);
-        // this.props.getAppState();
-        let {app} = this.props;
-        console.log(app)
-        if (app.state === APP_STATES.NOT_AUTHENTICATED) {
-            console.log('redirect')
+
+        if (this.props.app.state === APP_STATES.NOT_AUTHENTICATED) {
             hashHistory.push('/signin');
+        } else {
+            this.props.getAppState();
         }
-        if (app.state === APP_STATES.AUTHENTICATED) {
-            hashHistory.push('/dashboard');
-        }
+
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(this.props);
-        console.log("receiving props");
+        let {app} = this.props;
+        if (app.justSignedOut) {
+            hashHistory.push('/signin');
+        }
+        if (app.justSignedIn) {
+            hashHistory.push('/chooser');
+        }
     }
 
-    componentDidMount() {
-        console.log(this.props)
-    }
 
     render() {
         let {children, dispatch, app} = this.props;
-        console.log(app)
-
         let layout = <div>
             {this.props.children}
         </div>
 
         if (app.state === APP_STATES.AUTHENTICATED) {
+            let sideBar;
+            if (app.selectedAccount) {
+                sideBar =
+                    <SideBarContainer />
+            }
             layout = <div>
                 <HeaderContainer />
-                <SideBarContainer />
+                {sideBar}
                 <MainContainer children={children} dispatch={dispatch} />
             </div>
         }
@@ -65,6 +66,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        setCurrentAccount(accountId) {
+            dispatch({
+                type: ACCOUNT_SET,
+                data: accountId
+            })
+        },
         getAppState() {
             dispatch(checkAppState());
         }
