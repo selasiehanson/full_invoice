@@ -3,9 +3,13 @@ import NotificationPanel from '../core/notification-panel'
 
 
 const MainPane = (props) => {
-    let {children, dispatch, notification} = props;    
+    let {children, dispatch, notification, mode} = props;
+    let klasses = "app-content";
+    if (mode === 'full') {
+        klasses = "container app";
+    }
     return (
-        <div className="app-content">
+        <div className={klasses}>
             <NotificationPanel dispatch={dispatch} notification={notification} />
             {props.children}
         </div>

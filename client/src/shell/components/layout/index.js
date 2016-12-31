@@ -41,14 +41,20 @@ class Layout extends Component {
         if (app.state === APP_STATES.AUTHENTICATED) {
             let sideBar;
             if (app.selectedAccount) {
-                sideBar =
+                console.log("pause");
+                layout = <div>
+                    <HeaderContainer />
                     <SideBarContainer />
+                    <MainContainer children={children} dispatch={dispatch} />
+                </div>
+
+            } else {
+                layout = <div>
+                    <HeaderContainer />
+                    <MainContainer children={children} dispatch={dispatch} mode="full" />
+                </div>
             }
-            layout = <div>
-                <HeaderContainer />
-                {sideBar}
-                <MainContainer children={children} dispatch={dispatch} />
-            </div>
+
         }
 
         return (
@@ -66,12 +72,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCurrentAccount(accountId) {
-            dispatch({
-                type: ACCOUNT_SET,
-                data: accountId
-            })
-        },
+
         getAppState() {
             dispatch(checkAppState());
         }

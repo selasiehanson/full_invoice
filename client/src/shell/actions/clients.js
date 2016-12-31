@@ -1,13 +1,22 @@
 import {
-    SAGA_CLIENTS_FETCH_LIST,
-    CLIENTS_EDIT, CLIENTS_ADD,
+    SAGA_FETCH_CLIENTS,
+    CLIENTS_EDIT,
+    CLIENT_CACHE,
+    SAGA_ADD_CLIENT,
     CLIENTS_DELETE
 } from '../constants';
 
 export const getClients = () => {
     return {
-        type: SAGA_CLIENTS_FETCH_LIST
+        type: SAGA_FETCH_CLIENTS
     }
+}
+
+export const addClient = (client) => {
+    return {
+        type: SAGA_ADD_CLIENT,
+        data: client
+    };
 }
 
 export const editClient = (id) => {
@@ -18,21 +27,9 @@ export const deleteClient = (id) => {
     return { type: CLIENTS_DELETE, id }
 }
 
-export const addClient = () => {
-    return (dispatch, getState) => {
-        const form = getState().form;
-
-        const client = {
-            name: form.client.name.value,
-            phone: form.client.phone.value
-        }
-
-        console.log('from add client')
-
-        console.log(dispatch)
-        dispatch({
-            type: CLIENTS_ADD,
-            payload: client
-        });
+export const cacheClient = (client) => {
+    return {
+        type: CLIENT_CACHE,
+        data: client
     }
 }

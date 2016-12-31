@@ -1,31 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ACCOUNT_SELECTED } from '../../constants';
+import { ACCOUNT_SELECTED, SAGA_GET_USER_PROFILE } from '../../constants';
 import { hashHistory } from 'react-router';
 import { checkAppState } from '../../actions/auth';
 
 class AccountChooser extends Component {
 
     componentWillMount() {
-        //this.props.getAppState();
+        this.props.getUserProfile();
     }
 
     componentWillReceiveProps() {
-        console.log(this.props.app)
+        console.log(this.props.app);
         if (this.props.app.selectedAccount) {
-            hashHistory.push('/dashboard')
+            hashHistory.transitionTo('dashboard');
         }
     }
 
     render() {
         console.log(this.props);
-        let {onAcccountSelected} = this.props;
+        let {onAcccountSelected, app} = this.props;
+        let accounts;
+        if (app.profile) {
+            console.log('we have a profile')
+            accounts = app.profile.accounts.map((x, idx) => {
+                return <a key={idx} href="" onClick={() => onAcccountSelected(x)} className="btn btn-primary"> {x.organization_name} </a>
+            });
+        }
         return (
-            <div>
+            <div className="">
                 <div className="content-header">
                     <span className="title"> Select an Account </span>
                 </div>
-                <a href="" onClick={() => onAcccountSelected(1)} className="btn btn-primary"> Account 1 </a>
+                {accounts}
             </div>
         );
     }
@@ -39,14 +46,19 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAcccountSelected(accountId) {
+        onAcccountSelected(account) {
             dispatch({
                 type: ACCOUNT_SELECTED,
-                data: accountId
+                data: account
             })
         },
         getAppState() {
             dispatch(checkAppState());
+        },
+        getUserProfile() {
+            dispatch({
+                type: SAGA_GET_USER_PROFILE
+            })
         }
     }
 }

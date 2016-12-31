@@ -5,9 +5,30 @@ import { Link } from 'react-router';
 import { getClients } from '../../actions/clients';
 
 class ClientList extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.handleEvent = this.handleEvent.bind(this);
+    }
     componentWillMount() {
         this.props.loadClients();
     }
+
+    //calls the appropriate method based on the action button/text that 
+    //was clicked.
+    handleEvent(eventName, data) {
+        this[eventName](data);
+    }
+
+    viewClient(client) {
+        console.log(`viewing client ${client.id}`)
+    }
+
+    editClient(client) {
+        console.log(`editing client ${client.id}`)
+    }
+
     render() {
         let {clients, current, children, onEditClick, onDeleteClick} = this.props;
         let tableFields = [
@@ -15,13 +36,15 @@ class ClientList extends Component {
             { name: "email", header: "Email" },
             { name: "phone_number", header: "Phone Number" },
             { name: "address", header: "Address" },
-            // { name: 'view', type: 'action', header: '', action: 'viewTransaction' }
+            { name: 'view', type: 'action', header: '', action: 'viewClient' },
+            { name: 'edit', type: 'action', header: '', action: 'editClient' }
         ];
         let content = <span> No clients present, kindly add one. </span>
         if (clients.length !== 0) {
             content = <Table
                 tableData={clients}
-                tableFields={tableFields} />
+                tableFields={tableFields}
+                handleEvent={this.handleEvent} />
         }
         return (
             <div>

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 export default class Table extends Component {
 
@@ -7,7 +7,13 @@ export default class Table extends Component {
     }
 
     actionClicked(data, event) {
-        this.props.handleEvent(data.action, data.data);
+        try {
+            console.log(data);
+            this.props.handleEvent(data.action, data.data);
+        } catch (e) {
+            console.log(e);
+        }
+
         event.preventDefault();
     }
 
@@ -17,7 +23,6 @@ export default class Table extends Component {
         return tableData.map((data, index) => {
 
             let row = fields.map((columnKey, key) => {
-                // debugger
                 let itemToDisplay = data[columnKey];
                 let displayFn = columnWrappers[columnKey] ? columnWrappers[columnKey] : null;
 
@@ -30,11 +35,10 @@ export default class Table extends Component {
             });
 
             let actions = actionCols.map((x, idx) => {
-
-                let data = { data: data, action: x.action }
+                let item = { data: data, action: x.action }
                 return (
                     <td key={idx}>
-                        <a href="" onClick={this.actionClicked.bind(this, data)}> {x.name} </a>
+                        <a href="" onClick={this.actionClicked.bind(this, item)}> {x.name} </a>
                     </td>
                 );
             });
@@ -94,7 +98,7 @@ export default class Table extends Component {
                         </tbody>
                     </table>
                     <div>
-                        
+
                     </div>
                 </div>
             </div>

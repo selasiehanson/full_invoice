@@ -7,7 +7,8 @@ import { signout } from '../actions/auth';
 //todo fill body with items from state that should be displayed
 const mapStateToProps = (state) => {
     return {
-        header: state.header
+        header: state.header,
+        app: state.app
     }
 }
 

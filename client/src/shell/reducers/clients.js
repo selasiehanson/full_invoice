@@ -1,32 +1,20 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     CLIENTS_SHOW_NEW,
-    CLIENTS_ADD,
+    SAGA_ADD_CLIENT_SUCCESS,
     CLIENTS_EDIT,
     CLIENTS_DELETE,
-    SAGA_CLIENTS_FETCH_LIST_SUCCESS
+    SAGA_FETCH_CLIENTS_SUCCESS,
+    CLIENT_CACHE
 } from '../constants';
-
-const contact = (state = {}, action) => {
-    switch (action.type) {
-        case 'ADD_CONTACT':
-            let {id, contact} = action;
-            let {name, age, gender} = contact
-            return { id, name, age, gender }
-
-        default: return state;
-    }
-}
 
 const getContact = (contacts, id) => contacts.filter(x => x.id === id);
 
 const initialState = {
-    editMode: "",
+    afterSave: false,
+    mode: "",
     current: null,
-    all: [
-        { id: 1, name: "kofi", phone_number: "233 204 565 6567", email: "kofi@mail.com", address: "123 cool street" },
-        { id: 2, name: "ama", phone_number: "233 204 897 1234", email: "ama@mail.com", address: "456 cool street" }
-    ]
+    all: []
 };
 
 const clients = (state = initialState, action) => {
@@ -41,29 +29,22 @@ const clients = (state = initialState, action) => {
             if (reg.test(path)) {
                 var id = path.split("/")[2]
                 const current = getContact(all, +id);
-                return { all, current, editMode: "Edit" }
+                return { all, current, mode: "Edit" }
             } else if (path.includes("clients/new")) {
-                return { all, current: {}, editMode: "New" }
+                return { all, current: {}, mode: "New" }
             }
             else {
                 return { all, current: null }
             }
             break;
-        case SAGA_CLIENTS_FETCH_LIST_SUCCESS:
+        case SAGA_FETCH_CLIENTS_SUCCESS:
             return { ...state, all: action.clients, afterSave: false }
         case CLIENTS_SHOW_NEW:
             return { ...state, current: {} }
-        case CLIENTS_ADD:
-            //console.log(state)
-            var {all, current} = state;
-
-            var newList = [
-                ...all,
-                contact(undefined, action)
-            ];
-
-            return { current, all: newList };
-
+        case CLIENT_CACHE:
+            return { ...state, current: action.data }
+        case SAGA_ADD_CLIENT_SUCCESS:
+            return { ...state, afterSave: true };
         case CLIENTS_EDIT:
             var { all } = state;
             var current = getContact(action.id)
