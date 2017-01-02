@@ -195,3 +195,49 @@ main {
 /*.row notify-panel-holder .show {
   display: block;
 }*/
+
+
+.invoice .add-btn {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  right: 0px;
+  text-align: right;
+}
+
+.invoice .item-name-col {
+  width: 12%;
+}
+
+.invoice .item-description-col {
+  width: 30%;
+}
+
+.invoice  .tright {
+  text-align: right
+}
+
+.invoice .tright.price {
+  width: 200px
+}
+
+.invoice .summing-box {
+  margin-top: 30px;
+}
+
+.invoice .summing-box .row {
+  margin-bottom: 10px;
+}
+
+.invoice .actions {
+    border-top: 1px solid #dedede;
+    padding: 20px 0px;
+    /*background: #f1f4f5;*/
+    /*margin-left: -20px;*/
+    /* padding-right: 0px; */
+    margin-bottom: -20px;
+    /*margin-right: -20px;*/
+}
+
+.pull-right .btn {
+    margin-left: 10px;
+}

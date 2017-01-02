@@ -6,7 +6,6 @@ import { getClients } from '../../actions/clients';
 
 class ClientList extends Component {
 
-
     constructor(props) {
         super(props);
         this.handleEvent = this.handleEvent.bind(this);

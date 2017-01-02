@@ -9373,3 +9373,177 @@ No serializer found for resource: #<Product id: 1, name: "Peter Bread", descript
 Completed 200 OK in 118ms (Views: 21.4ms | ActiveRecord: 1.7ms)
 
 
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 14:20:13 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (5.72ms)
+Completed 200 OK in 28ms (Views: 10.4ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:21:06 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.73ms)
+Completed 200 OK in 10ms (Views: 3.8ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:39:22 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (3.27ms)
+Completed 200 OK in 9ms (Views: 5.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/1/clients" for 127.0.0.1 at 2017-01-02 16:39:23 +0000
+Processing by ClientsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mClient Load (0.7ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Client id: 1, name: "Peter", email: "samza@mailx.com", phone_number: "0123456789", address: "some 1234 street bi", created_at: "2016-12-26 17:03:02", updated_at: "2016-12-26 17:03:02", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Client::ActiveRecord_Associations_CollectionProxy (17.76ms)
+Completed 200 OK in 47ms (Views: 33.5ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:39:24 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.03ms)
+Completed 200 OK in 6ms (Views: 2.4ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/user_token" for 127.0.0.1 at 2017-01-02 16:40:49 +0000
+Processing by UserTokenController#create as */*
+  Parameters: {"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}, "user_token"=>{"auth"=>{"email"=>"kofiowusu@mail.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "kofiowusu@mail.com"], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Knock::AuthToken (0.11ms)
+Completed 201 Created in 83ms (Views: 6.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/accounts/profile" for 127.0.0.1 at 2017-01-02 16:40:49 +0000
+Processing by AccountsController#profile as HTML
+  Parameters: {"account"=>{}}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+[active_model_serializers] No serializer found for resource: #<Account id: 1, organization_name: "Ben Jo Ent", business_email: nil, created_by: 1, enabled: nil, created_at: "2016-12-26 16:55:02", updated_at: "2016-12-26 16:55:02">
+[active_model_serializers]   [1m[36mAccountDetail Load (0.2ms)[0m  [1m[34mSELECT "account_details".* FROM "account_details" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+[active_model_serializers] No serializer found for resource: #<AccountDetail id: 1, user_id: 1, account_id: 1, role: "admin", enabled: nil, created_at: "2016-12-26 16:55:02", updated_at: "2016-12-26 16:55:02">
+[active_model_serializers] Rendered ProfileSerializer with ActiveModelSerializers::Adapter::Attributes (28.62ms)
+Completed 200 OK in 46ms (Views: 33.7ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/1/clients" for 127.0.0.1 at 2017-01-02 16:41:09 +0000
+Processing by ClientsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mClient Load (0.2ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Client id: 1, name: "Peter", email: "samza@mailx.com", phone_number: "0123456789", address: "some 1234 street bi", created_at: "2016-12-26 17:03:02", updated_at: "2016-12-26 17:03:02", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Client::ActiveRecord_Associations_CollectionProxy (4.96ms)
+Completed 200 OK in 11ms (Views: 6.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:41:09 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.46ms)
+Completed 200 OK in 7ms (Views: 3.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:41:12 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.35ms)
+Completed 200 OK in 6ms (Views: 3.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:46:00 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.98ms)
+Completed 200 OK in 9ms (Views: 4.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:46:00 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.66ms)
+Completed 200 OK in 9ms (Views: 4.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/1/clients" for 127.0.0.1 at 2017-01-02 16:46:03 +0000
+Processing by ClientsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mClient Load (0.2ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Client id: 1, name: "Peter", email: "samza@mailx.com", phone_number: "0123456789", address: "some 1234 street bi", created_at: "2016-12-26 17:03:02", updated_at: "2016-12-26 17:03:02", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Client::ActiveRecord_Associations_CollectionProxy (4.29ms)
+Completed 200 OK in 10ms (Views: 6.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:46:04 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.18ms)
+Completed 200 OK in 6ms (Views: 2.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/1/clients" for 127.0.0.1 at 2017-01-02 16:46:21 +0000
+Processing by ClientsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mClient Load (0.2ms)[0m  [1m[34mSELECT "clients".* FROM "clients" WHERE "clients"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Client id: 1, name: "Peter", email: "samza@mailx.com", phone_number: "0123456789", address: "some 1234 street bi", created_at: "2016-12-26 17:03:02", updated_at: "2016-12-26 17:03:02", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Client::ActiveRecord_Associations_CollectionProxy (5.73ms)
+Completed 200 OK in 12ms (Views: 8.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/1/products" for 127.0.0.1 at 2017-01-02 16:46:22 +0000
+Processing by ProductsController#index as HTML
+  Parameters: {"tenant_id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Load (0.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" INNER JOIN "account_details" ON "accounts"."id" = "account_details"."account_id" WHERE "account_details"."user_id" = ?[0m  [["user_id", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."account_id" = ?[0m  [["account_id", 1]]
+No serializer found for resource: #<Product id: 1, name: "Peter Bread", description: "Flat and Nice and soft", text: nil, product_type: "consumable", reorder_level: 123, can_be_sold: true, can_be_purchased: true, created_at: "2016-12-26 17:19:11", updated_at: "2016-12-26 17:19:11", account_id: 1>
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with Product::ActiveRecord_Associations_CollectionProxy (1.97ms)
+Completed 200 OK in 8ms (Views: 4.2ms | ActiveRecord: 0.4ms)
+
+

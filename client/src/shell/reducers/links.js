@@ -5,6 +5,7 @@ const initialState = {
         {
             link: '/dashboard',
             text: 'Dashboard',
+            icon: 'fa fa-bar-chart',
             description: {
                 title: 'Dashboard',
                 content: 'See all your app actities'
@@ -22,19 +23,23 @@ const initialState = {
         },
         {
             link: '/clients',
-            text: 'Clients'
+            text: 'Clients',
+            icon: 'fa fa-users'
         },
         {
             link: '/products',
-            text: 'Products'
+            text: 'Products',
+            icon: 'fa fa-barcode'
         },
         {
             link: '/invoices',
-            text: 'Invoices'
+            text: 'Invoices',
+            icon: 'fa fa-file-text'
         },
         {
             link: '/reports',
-            text: 'Reports'
+            text: 'Reports',
+            icon: 'fa fa-area-chart'
         }
     ],
     current: 0,

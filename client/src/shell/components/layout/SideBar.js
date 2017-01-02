@@ -14,7 +14,7 @@ const SideBar = (props) => {
     let lis = links.all.map((link, idx) => {
         return (
             <li key={idx}>
-                <NavLink to={link.link}> {link.text} </NavLink>
+                <NavLink to={link.link}> <i className={link.icon}></i> {link.text} </NavLink>
             </li>
         )
     });
