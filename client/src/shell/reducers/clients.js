@@ -8,7 +8,7 @@ import {
     CLIENT_CACHE
 } from '../constants';
 
-const getContact = (contacts, id) => contacts.filter(x => x.id === id);
+const getClient = (clients, id) => clients.filter(x => x.id === id);
 
 const initialState = {
     afterSave: false,
@@ -28,7 +28,7 @@ const clients = (state = initialState, action) => {
 
             if (reg.test(path)) {
                 var id = path.split("/")[2]
-                const current = getContact(all, +id);
+                const current = getClient(all, +id);
                 return { all, current, mode: "Edit" }
             } else if (path.includes("clients/new")) {
                 return { all, current: {}, mode: "New" }
@@ -47,8 +47,7 @@ const clients = (state = initialState, action) => {
             return { ...state, afterSave: true };
         case CLIENTS_EDIT:
             var { all } = state;
-            var current = getContact(action.id)
-            console.log(current);
+            var current = getClient(action.id)            
             return { all, current };
 
         default: return state;

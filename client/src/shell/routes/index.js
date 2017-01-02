@@ -9,6 +9,7 @@ import Client from '../components/clients/client';
 import InvoiceList from '../components/invoices/invoice-list';
 import Invoice from '../components/invoices/invoice';
 import ProductList from '../components/products/product-list';
+import Product from '../components/products/product';
 import SignIn from '../components/layout/sign-in';
 import Register from '../components/layout/register';
 import AccountChooser from '../components/layout/account-chooser';
@@ -25,7 +26,10 @@ export default (
             <IndexRoute component={InvoiceList} />
             <Route path="new" component={Invoice} />
         </Route>
-        <Route path="products" component={ProductList} />
+        <Route path="products" >
+            <IndexRoute component={ProductList} />
+            <Route path="new" component={Product}> </Route>
+        </Route>
         <Route path="reports" component={Report} />
         <Route path="signup" component={Register} />
         <Route path="signin" component={SignIn} />

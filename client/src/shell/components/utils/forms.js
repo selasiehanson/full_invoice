@@ -11,4 +11,24 @@ const renderInput = field => {
     )
 }
 
-export { renderInput };
+const renderCheckbox = field => {
+    return (
+       
+        <label className="checkbox-inline">
+            <input {...field.input} type="checkbox"  /> {field.placeholder}
+        </label>              
+    );
+}
+
+const renderRadio = field => {
+    console.log(field)
+    return (
+        <label className="radio-inline">
+            <input  {...field.input} value={field.input.value} type="radio"/>
+                {field.placeholder}
+        </label>
+           
+    );
+}
+
+export { renderInput , renderCheckbox, renderRadio};

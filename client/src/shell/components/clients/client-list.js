@@ -40,11 +40,23 @@ class ClientList extends Component {
             { name: 'edit', type: 'action', header: '', action: 'editClient' }
         ];
         let content = <span> No clients present, kindly add one. </span>
+
+        let columnWrappers = {
+            view(f) {
+                return <span> <i className="fa fa-eye"> </i> </span>
+            },
+            edit(f) {
+                return <span> <i className="fa fa-pencil"> </i> </span>
+            }
+
+        }
+
         if (clients.length !== 0) {
             content = <Table
                 tableData={clients}
                 tableFields={tableFields}
-                handleEvent={this.handleEvent} />
+                handleEvent={this.handleEvent}
+                columnWrappers={columnWrappers} />
         }
         return (
             <div>
