@@ -1,50 +1,113 @@
 import React, { Component } from 'react';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import { Link } from 'react-router';
+import { 
+    renderInput, 
+    renderCheckbox, 
+    renderRadio, 
+    renderDate,
+    renderSelect 
+} from '../utils/forms';
+import { reduxForm, Field, FieldArray } from 'redux-form';
+import { connect } from 'react-redux';
+import { getProducts } from '../../actions/products';
+import { getClients } from '../../actions/clients';
+import { addInvoice, cacheInvoice } from '../../actions/invoices';
+import { getCurrencies } from '../../actions'
 
+const validate = (values) => {
+    const errors = {};
 
-const currencies = [
-    { value: 1, label: 'GHS' },
-    { value: 1, label: 'USD' }
-]
-
-function logChange(val) {
-    console.log("Selected: " + val);
+    return errors;
 }
 
-
-export default class Invoice extends Component {
-
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.addLine = this.addLine.bind(this)
-        this.onInputChange = this.onInputChange.bind(this);
-        this.state = {
-            invoiceDate: moment(),
-            dueDate: moment(),
-            lines: []
-        };
-    }
-
-    handleChange(date) {
-        this.setState({ invoiceDate: date });
-    }
-
-    addLine() {
+const renderLineItems = (props) => {
+    console.log(props);
+    let {fields, products}  = props;
+    const addLine = () => {
+        console.log('adding a line')
         let newItem = {
             item_id: 0,
             description: "",
             quantity: 1,
-            discount: 0,
+            discount_flat: 0,
+            discount_percentage: 0,
             tax: 0,
-            unit_cost: ""
+            price: ""
         };
-        this.state.lines.push(newItem);
-        let newState = this.state;
-        this.setState(newState);
+        fields.push(newItem);
+    }
+
+    const renderLine = (line, idx) => {
+        return (
+            <tr key={idx}>
+                <td> {idx + 1}. </td>
+                <td className="item-name-col">
+                    <Field name={`${line}.product`} component={renderSelect} className="input-sm tright" options={products} />
+                </td>
+                <td className="item-description-col">
+                    <Field name={`${line}.description`} component={renderInput} className="input-sm tright" />
+                </td>
+                <td>
+                    <Field name={`${line}.quantity`} component={renderInput} className="input-sm tright" />
+                </td>
+                <td>
+                    <Field name={`${line}.price`} component={renderInput} className="input-sm tright" />
+                </td>
+                
+                <td>
+                    <Field name={`${line}.tax`} component={renderInput} className="input-sm tright" />
+                </td>
+                <td>
+                    <Field name={`${line}.line_total`} component={renderInput} className="input-sm tright" />
+                </td>
+                <td>
+                    <a onClick={() => fields.remove(idx)}> <i className="fa fa-trash"></i> </a>
+                </td>
+            </tr>
+        );
+    }
+
+    return (
+        <div>
+            <div className="clearfix">
+                <div className="pull-right add-btn">
+                    <a className="btn btn-default" onClick={addLine}>  <i className="fa fa-plus"></i> Add Item </a>
+                </div>
+            </div>
+            <div className="">
+                <table className="table-custom table">
+                    <thead>
+                        <tr>
+                            <th className="col-1"></th>
+                            <th className="item-name-col"> Item </th>
+                            <th className="item-description-col"> Description </th>
+                            <th> Quantity </th>
+                            <th> Price </th>                            
+                            <th> Tax </th>
+                            <th> Line Total </th>
+                            <th className="col-1"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {fields.map(renderLine)}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+class Form extends Component {
+
+    constructor(props) {
+        super(props);        
+    }
+
+    handleChange(date) {
+        
     }
 
     onInputChange() {
@@ -58,136 +121,21 @@ export default class Invoice extends Component {
             return 0;
     }
 
-    removeRow(idx) {
-        this.state.lines.splice(idx, 1);
-        this.setState(this.state);
-    }
-
-    renderLineItems() {
-        let renderLine = (line, idx) => {
-            return (
-                <tr key={idx}>
-                    <td> {idx + 1}. </td>
-                    <td className="item-name-col">
-
-                    </td>
-                    <td className="item-description-col">
-                        <input
-                            className="form-control input-sm tright"
-                            onChange={this.onInputChange}
-                            type="text"
-                            value={line.description} />
-                    </td>
-                    <td>
-                        <input
-                            className="form-control input-sm tright"
-                            onChange={this.onInputChange}
-                            type="text"
-                            value={line.quantity} />
-                    </td>
-                    <td>
-                        <input
-                            className="form-control input-sm tright"
-                            onChange={this.onInputChange}
-                            type="text"
-                            value={line.unit_cost} />
-                    </td>
-                    <td>
-                        <input
-                            className="form-control input-sm tright"
-                            onChange={this.onInputChange}
-                            type="text"
-                            value={line.discount} />
-                    </td>
-                    <td>
-                        <input
-                            className="form-control input-sm tright"
-                            onChange={this.onInputChange}
-                            type="text"
-                            value={line.tax} />
-                    </td>
-                    <td>
-                        <input
-                            className="form-control input-sm tright"
-                            onChange={this.onInputChange}
-                            type="text"
-                            value={this.computePrice(line.quantity, line.unit_cost)} />
-                    </td>
-                    <td>
-                        <a onClick={() => this.removeRow(idx)}> <i className="fa fa-trash"></i> </a>
-                    </td>
-                </tr>
-            );
-        }
-
-        return (
-            <table className="table-custom table">
-                <thead>
-                    <tr>
-                        <th className="col-1"></th>
-                        <th className="item-name-col"> Item </th>
-                        <th className="item-description-col"> Description </th>
-                        <th> Quantity </th>
-                        <th> Unit cost </th>
-                        <th> Discount </th>
-                        <th> Tax </th>
-                        <th> Price </th>
-                        <th className="col-1"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.state.lines.map(renderLine)}
-                </tbody>
-            </table>
-        )
-    }
-
     renderInvoiceHeader() {
-        var options = [
-            { value: 'one', label: 'One' },
-            { value: 'two', label: 'Two' }
-        ];
-
+        
         return (
             <div className="row">
                 <div className="col-md-3">
-                    <div>
-                        <label> Invoice Date </label>
-                        <div>
-                            <DatePicker className="form-control"
-                                selected={this.state.invoiceDate}
-                                onChange={this.handleChange} />
-                        </div>
-                    </div>
+                    <Field name="invoice_date" component={renderDate} placeholder="Invoice Date" />                    
                 </div>
                 <div className="col-md-3">
-                    <div>
-                        <label> Due Date </label>
-                        <div>
-                            <DatePicker className="form-control"
-                                selected={this.state.dueDate}
-                                onChange={this.handleChange} />
-                        </div>
-                    </div>
+                    <Field name="due_date" component={renderDate} placeholder="Due Date" />                    
                 </div>
                 <div className="col-md-3">
-                    <label> Client </label>
-                    <div className>
-                        <Select
-                            name="client_id"
-                            value="one"
-                            options={options}
-                            onChange={logChange}
-                            />
-                    </div>
+                   <Field name="client" component={renderSelect} placeholder="Client" options={this.props.clients}/>
                 </div>
                 <div className="col-md-3">
-                    <div>
-                        <label> Invoice Number </label>
-                        <div>
-                            <input type="text" className="form-control" />
-                        </div>
-                    </div>
+                     <Field name="invoice_number" component={renderInput} placeholder="Invoice Number" />
                 </div>
             </div>
         );
@@ -199,15 +147,11 @@ export default class Invoice extends Component {
                 <div className="summing-box clearfix">
                     <div className="row">
                         <div className="col-sm-3 pull-right">
-                            <label for="">Currency </label>
-                            <div>
-                                <Select
-                                    name="client_id"
-                                    value="one"
-                                    options={currencies}
-                                    onChange={logChange}
-                                    />
-                            </div>
+                            <Field name="currency" 
+                                component={renderSelect} 
+                                placeholder="Currency" 
+                                options={this.props.currencies}
+                                labelKey="currency_code" />                            
                         </div>
                     </div>
                     <div className="row">
@@ -235,35 +179,98 @@ export default class Invoice extends Component {
 
     render() {
 
+        let {handleSubmit, saveInvoice, pristine, submitting, products, clients} = this.props;        
         let actionLinks = <span className="pull-right">
             <Link to="/invoices" className="btn btn-default"> Cancel </Link>
-            <a href="" className="btn btn-success"> Create invoice </a>
-        </span>
+            <button type="submit" className="btn btn-success" disabled={pristine || submitting}> Create invoice </button>
+        </span>;
+
         return (
             <div className="invoice">
                 <div className="content-header">
                     <span className="title"> New Invoice </span>
                     {actionLinks}
                 </div>
-                <div>
-                    {this.renderInvoiceHeader()}
-
-                    <div className="clearfix">
-                        <div className="pull-right add-btn">
-                            <a className="btn btn-default" onClick={this.addLine}>  <i className="fa fa-plus"></i> Add Item </a>
+                <form onSubmit={handleSubmit(saveInvoice)}>
+                    <div>
+                        {this.renderInvoiceHeader()}
+                        <FieldArray name="invoice_lines" component={renderLineItems} products={products}/>                        
+                        <div>
+                            {this.renderInvoicerFooter()}
+                        </div>
+                        <div className="clearfix actions">
+                            {actionLinks}
                         </div>
                     </div>
-                    <div className="">
-                        {this.renderLineItems()}
-                    </div>
-                    <div>
-                        {this.renderInvoicerFooter()}
-                    </div>
-                    <div className="clearfix actions">
-                        {actionLinks}
-                    </div>
-                </div>
+                </form>
             </div>
-        )
+        );
     }
 }
+
+let InvoiceForm = reduxForm({
+    form: 'invoice',
+    validate
+})(Form);
+
+
+class InvoiceContainer extends Component {
+    componentWillMount(){
+        this.props.loadResources();
+    }
+
+    render (){
+      return (
+            <div>
+                <InvoiceForm {...this.props} />
+            </div>
+        );
+    }
+}
+
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        ...state.invoices,
+        clients: state.clients.all,
+        products: state.products.all,
+        currencies: state.currencies.all      
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadResources() {
+            dispatch(getClients());
+            dispatch(getProducts());
+            dispatch(getCurrencies());
+        },
+        onEditClick(id) {
+            //dispatch(editContact(id))
+        },
+        onDeleteClick(id) {
+            //dispatch(deleteContact(id))
+        },
+        saveInvoice(invoice) {
+            console.log(invoice)
+            console.log('adding a invoice')
+            dispatch(cacheInvoice(invoice));
+            dispatch(addInvoice(transformInvoiceToPersist(invoice)));
+            console.log('after dispatch');
+        }
+    }
+}
+
+const transformInvoiceToPersist = (invoice) => {
+    invoice.client_id = invoice.client.id;
+    invoice.currency_id = invoice.currency.id;
+    invoice.invoice_lines = invoice.invoice_lines.map((line) => {
+        line.product_id = line.product.id;
+        return line;
+    });
+    return invoice;
+}
+
+const Invoice = connect(mapStateToProps, mapDispatchToProps)(InvoiceContainer)
+export default Invoice;
+

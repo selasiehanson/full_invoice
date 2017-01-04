@@ -30,6 +30,11 @@ main {
   border: 1px solid #dedede;
 }
 
+.sidebar-toggler, .sidebar-toggler:hover {
+  color: white;
+  margin-left: 20px;
+}
+
 .sidebar {
     /*background: #efefef;
     position: absolute;
@@ -91,6 +96,10 @@ main {
     margin-right: -2px;
     color: #2F353F;
     background: #E6EBEC;
+}
+
+.sidebar .fa {
+    width: 1.8em;
 }
 
 .table > thead > tr > th {
@@ -205,14 +214,14 @@ main {
 }
 
 .invoice .item-name-col {
-  width: 12%;
+  width: 20%;
 }
 
 .invoice .item-description-col {
   width: 30%;
 }
 
-.invoice  .tright {
+.invoice .tright {
   text-align: right
 }
 

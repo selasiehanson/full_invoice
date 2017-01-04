@@ -4,8 +4,8 @@
 #
 #  id             :integer          not null, primary key
 #  account_id     :integer
-#  due_date       :datetime
-#  invoice_date   :datetime
+#  due_date       :date
+#  invoice_date   :date
 #  client_id      :integer
 #  notes          :text
 #  currency_id    :integer
@@ -49,7 +49,7 @@ class Invoice < ApplicationRecord
 
   def compute_total_amount
     self.total_amount = invoice_lines.inject(0) do |result, line|
-      result + line.price
+      result + line.line_total
     end
   end
 

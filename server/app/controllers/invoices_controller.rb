@@ -19,7 +19,7 @@ class InvoicesController < ApplicationController
   private
 
   def invoice_params
-    params.fetch(:invoice, {})
+    params.require(:invoice)
           .permit(:invoice_date, :due_date, :notes, :client_id, :currency_id,
                   :invoice_number,
                   invoice_lines: [:invoice_id, :product_id, :quantity,

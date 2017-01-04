@@ -12,8 +12,12 @@ const mapStateToProps = (state) => {
     }
 }
 
+
 const mapDispatchToProps = (dispatch) => {
     return {
+        toggleSibdeBar() {
+
+        },
         logout() {
             console.log('logging out');
             dispatch(signout())

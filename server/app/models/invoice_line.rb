@@ -12,6 +12,7 @@
 #  price               :decimal(19, 2)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  line_total          :decimal(19, 2)
 #
 # Indexes
 #
@@ -29,4 +30,12 @@ class InvoiceLine < ApplicationRecord
 
   belongs_to :invoice
   belongs_to :product
+
+  before_save :compute_line_total
+
+  private
+
+  def compute_line_total
+    self.line_total = quantity * price
+  end
 end

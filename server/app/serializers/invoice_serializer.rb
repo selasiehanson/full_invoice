@@ -3,7 +3,15 @@ class InvoiceSerializer < ActiveModel::Serializer
              :client_id, :currency_id,
              :invoice_number, :invoice_lines,
              :account_id, :total_amount, :total_tax,
-             :status
+             :status, :client, :currency
 
   has_many :invoice_lines
+
+  def client
+    object.client
+  end
+
+  def currency
+    object.currency
+  end
 end

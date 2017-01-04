@@ -6,16 +6,16 @@ class InvoicePresenter
                 :invoice_number, :invoice_lines,
                 :account_id
 
+  validates :invoice_lines, presence: true
   validate :valid_due_date
   validate :valid_invoice_date
-  validate :invoice_lines_not_empty
-  validate :absence_of_duplicate_lines, if: -> { !invoice_lines.empty? }
+  validate :invoice_lines_not_empty, if: -> { !invoice_lines.nil? }
+  validate :absence_of_duplicate_lines, if: -> { !invoice_lines.nil? && !invoice_lines.empty? }
 
   def save
-    Invoice.transaction do
+    Invoice.transaction do      
       @invoice = Invoice.create!(invoice_attributes)
       lines = invoice_lines.map do |line|
-        p line
         line_presenter = LinePresenter.new(line)
         line_presenter.build(@invoice.id)
       end
@@ -27,17 +27,29 @@ class InvoicePresenter
   private
 
   def valid_due_date
-    DateTime.parse(due_date) < DateTime.now && errors.add(:due_date, "due date cannot be today's date' or earlier")
+    parsed_date = nil
+    begin
+      parsed_date = Date.strptime(due_date, '%m/%d/%Y')
+    rescue
+      errors.add(:due_date, 'inavalid date format, date must be in the format mm/dd/yyyy format')
+      return
+    end
+    parsed_date < Date.today && errors.add(:due_date, "due date cannot be today's date' or earlier")
   end
 
   def valid_invoice_date
-    DateTime.parse(invoice_date) < DateTime.now && errors.add(:due_date, "invoice date cannot be before today's date'")
+    parsed_date = nil
+    begin
+      parsed_date = Date.strptime(invoice_date, '%m/%d/%Y')
+    rescue
+      errors.add(:invoice_date, 'inavalid date format, date must be in the format mm/dd/yyyy format')
+      return
+    end
+    parsed_date < Date.today && errors.add(:invoice_date, "invoice date cannot be today's date' or earlier")
   end
 
   def invoice_lines_not_empty
-    if invoice_lines.empty?
-      errors.add(:invoice_lines, 'invoice must contain at least one item')
-    end
+    invoice_lines.empty? && errors.add(:invoice_lines, 'invoice must contain at least one item')
   end
 
   def absence_of_duplicate_lines
@@ -49,11 +61,15 @@ class InvoicePresenter
     total_product_count != uniq_product_count && errors.add(:invoice_lines, msg)
   end
 
+  def convert_to_date(date)
+    Date.strptime(date, '%m/%d/%Y')
+  end
+  
   def invoice_attributes
     {
       client_id: client_id,
-      due_date: due_date,
-      invoice_date: invoice_date,
+      due_date: convert_to_date(due_date),
+      invoice_date: convert_to_date(invoice_date),
       currency_id: currency_id,
       invoice_number: invoice_number,
       notes: notes,
@@ -68,6 +84,9 @@ class LinePresenter
   attr_accessor :invoice_id, :product_id, :description,
                 :quantity, :discount_percentage,
                 :discount_flat, :price
+
+  validates :quantity, presence: true
+  validates :description, presence: true
 
   def build(invoice_id)
     line_attributes.merge(invoice_id: invoice_id)

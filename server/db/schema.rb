@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228164423) do
+ActiveRecord::Schema.define(version: 20170103225818) do
 
   create_table "account_details", force: :cascade do |t|
     t.integer  "user_id"
@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 20161228164423) do
     t.string   "iso_numeric"
     t.string   "currency_name"
     t.string   "currency_code"
-    t.string   "symbol"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "currency_symbol"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "invoice_lines", force: :cascade do |t|
@@ -65,14 +65,15 @@ ActiveRecord::Schema.define(version: 20161228164423) do
     t.decimal  "price",               precision: 19, scale: 2
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.decimal  "line_total",          precision: 19, scale: 2
     t.index ["invoice_id"], name: "index_invoice_lines_on_invoice_id"
     t.index ["product_id"], name: "index_invoice_lines_on_product_id"
   end
 
   create_table "invoices", force: :cascade do |t|
     t.integer  "account_id"
-    t.datetime "due_date"
-    t.datetime "invoice_date"
+    t.date     "due_date"
+    t.date     "invoice_date"
     t.integer  "client_id"
     t.text     "notes"
     t.integer  "currency_id"

@@ -12,6 +12,7 @@
 #  price               :decimal(19, 2)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  line_total          :decimal(19, 2)
 #
 # Indexes
 #

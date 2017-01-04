@@ -4,8 +4,8 @@
 #
 #  id             :integer          not null, primary key
 #  account_id     :integer
-#  due_date       :datetime
-#  invoice_date   :datetime
+#  due_date       :date
+#  invoice_date   :date
 #  client_id      :integer
 #  notes          :text
 #  currency_id    :integer
