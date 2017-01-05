@@ -37,6 +37,11 @@ const initialState = {
             icon: 'fa fa-file-text'
         },
         {
+            link: '/taxes',
+            text: 'Taxes',
+            icon: 'fa fa-usd'
+        },        
+        {
             link: '/reports',
             text: 'Reports',
             icon: 'fa fa-area-chart'

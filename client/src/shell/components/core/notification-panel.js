@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 import { showNotification, hideNotification } from '../../actions';
-
+import jQuery from 'jquery';
+let $ = jQuery;
 export default class NotificationPanel extends Component {
     constructor(props) {
         super(props);
@@ -21,12 +22,12 @@ export default class NotificationPanel extends Component {
     render() {
         const { type, content, display } = this.props.notification;
         const classForDisplay = cx('row notify-panel-holder', { 'show': display, hidden: !display });
-        const cssForPanel = cx('notify-panel col-md-6 col-md-offset-3', 'bg-' + (type === 'success' ? 'success' : (type === 'error' ? 'danger' : type)));
-
+        const cssForPanel = cx('notify-panel', 'bg-' + (type === 'success' ? 'success' : (type === 'error' ? 'danger' : type)));
+        let offset = ($(document).width() / 2) - (400 /2);
         return (
-            <div className={classForDisplay}>
+            <div className={classForDisplay} style={{'left': `${offset}px`}}>
                 <div className={cssForPanel}>
-                    <p className="fs-16">{content}</p>
+                    <span className="">{content}</span>
                 </div>
             </div>
         );

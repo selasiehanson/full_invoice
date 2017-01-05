@@ -57,6 +57,7 @@ export default class Table extends Component {
 
                 return (
                     <tr key={index}>
+                        <td> {index + 1}. </td>
                         {row}
                         {actions}
                     </tr>
@@ -72,6 +73,7 @@ export default class Table extends Component {
 
         return (
             <tr>
+                <th className="col-1"> </th>
                 {tableHeaders}                
             </tr>
         )

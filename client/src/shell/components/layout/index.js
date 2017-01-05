@@ -3,7 +3,11 @@ import MainContainer from '../../containers/MainContainer';
 import HeaderContainer from '../../containers/HeaderContainer';
 import SideBarContainer from '../../containers/SideBarContainer'
 import { connect } from 'react-redux';
-import { APP_STATES, ACCOUNT_SET } from '../../constants';
+import { 
+    APP_STATES, 
+    ACCOUNT_SET, 
+    SHOW_NOTIFICATION, 
+    MSG_CLIENT_CREATE_SUCCESS } from '../../constants';
 import SignIn from './sign-in';
 import { checkAppState } from '../../actions/auth';
 import { hashHistory } from 'react-router';
@@ -12,6 +16,8 @@ import { hashHistory } from 'react-router';
 class Layout extends Component {
 
     componentWillMount() {
+
+        //this.props.testNoti();
 
         if (this.props.app.state === APP_STATES.NOT_AUTHENTICATED) {
             hashHistory.push('/signin');
@@ -72,7 +78,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        testNoti() {
+            dispatch({
+                type: SHOW_NOTIFICATION,
+                payload: {
+                    type: 'info',
+                    content: MSG_CLIENT_CREATE_SUCCESS
+                }
+            });
+        },
         getAppState() {
             dispatch(checkAppState());
         }

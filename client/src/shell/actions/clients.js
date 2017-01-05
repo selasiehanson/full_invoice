@@ -3,7 +3,9 @@ import {
     CLIENTS_EDIT,
     CLIENT_CACHE,
     SAGA_ADD_CLIENT,
-    CLIENTS_DELETE
+    CLIENTS_DELETE,
+    MSG_CLIENT_CREATE_SUCCESS,
+    SHOW_NOTIFICATION
 } from '../constants';
 
 export const getClients = () => {
@@ -31,5 +33,15 @@ export const cacheClient = (client) => {
     return {
         type: CLIENT_CACHE,
         data: client
+    }
+}
+
+export const showClientCreatedMsg = () => {
+    return {
+        type: SHOW_NOTIFICATION,
+        payload: {
+            type: 'success',
+            content: MSG_CLIENT_CREATE_SUCCESS
+        }
     }
 }

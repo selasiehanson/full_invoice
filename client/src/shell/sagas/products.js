@@ -6,6 +6,8 @@ import {
     SAGA_ADD_PRODUCT_SUCCESS,
     SAGA_UPDATE_PRODUCT_SUCCESS
 } from '../constants';
+import {showProductCreatedMsg} from '../actions/products';
+
 
 const PRODUCTS = 'products';
 export function* productsFetchList(action) {
@@ -30,6 +32,8 @@ export function* addProduct(action) {
             type: SAGA_ADD_PRODUCT_SUCCESS,
             product: res.data
         });
+
+        yield put(showProductCreatedMsg());
     } catch (e) {
 
     }

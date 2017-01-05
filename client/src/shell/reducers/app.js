@@ -15,10 +15,8 @@ const initialState = {
     justSignedOut: false
 }
 
-function setUser(profile) {
-    if (!localStorage.getItem('id_token')) {
-        localStorage.setItem('profile', JSON.stringify(profile));
-    }
+function setUser(profile) {    
+    localStorage.setItem('profile', JSON.stringify(profile));    
 }
 
 function setToken(token) {
@@ -66,6 +64,7 @@ const app = (state = initialState, action) => {
             return { ...state, selectedAccount: action.data }
 
         case SAGA_GET_USER_PROFILE_SUCCESS:
+            setUser(action.data);
             return { ...state, profile: action.data }
             break;
         case SIGN_OUT:

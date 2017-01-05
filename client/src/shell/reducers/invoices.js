@@ -44,6 +44,7 @@ const invoices = (state = initialState, action) => {
                 newInvoice.due_date = dateHelpers.simpleHumanDate(newInvoice.due_date);
                 newInvoice.invoice_date = dateHelpers.simpleHumanDate(newInvoice.invoice_date);
                 newInvoice.total_amount = `${newInvoice.currency.currency_code} ${newInvoice.total_amount}`;
+                newInvoice.total_tax = `${newInvoice.currency.currency_code} ${newInvoice.total_tax}`;
                 return newInvoice;
             })
             return {...state, all: invoices, afterSave: false, original: old }

@@ -1,10 +1,9 @@
 class ProductsController < ApplicationController
-
   rescue_from ActiveRecord::RecordNotFound, with: :product_not_found
   before_action :find_product, only: [:show, :update, :destroy]
 
   def index
-    products = current_tenant.products
+    products = current_tenant.products.order(updated_at: :desc)
     render json: products
   end
 
@@ -44,7 +43,8 @@ class ProductsController < ApplicationController
       :product_type,
       :reorder_level,
       :can_be_purchased,
-      :can_be_sold)
+      :can_be_sold
+    )
   end
 
   def find_product

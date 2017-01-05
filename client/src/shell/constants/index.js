@@ -48,6 +48,24 @@ export const SAGA_UPDATE_INVOICE_SUCCESS = 'SAGA_UPDATE_INVOICE_SUCCESS';
 export const SAGA_GET_INVOICE = 'SAGA_GET_INVOICE';
 export const SAGA_GET_INVOICE_SUCCESS = 'SAGA_GET_INVOICE_SUCCESS';
 
+////TAX
+export const TAXES_ALL = 'TAXES_ALL';
+export const TAX_CACHE = 'TAX_CACHE';
+export const TAXES_SHOW_NEW = 'TAX_SHOW_NEW';
+export const TAXES_EDIT = 'TAX_EDIT';
+export const TAXES_DELETE = 'TAX_DELETE';
+
+//SAGAS
+export const SAGA_FETCH_TAXES = 'SAGA_FETCH_TAXES';
+export const SAGA_FETCH_TAXES_SUCCESS = 'SAGA_FETCH_TAXES_SUCCESS';
+export const SAGA_ADD_TAX = 'SAGA_ADD_TAX';
+export const SAGA_ADD_TAX_SUCCESS = 'SAGA_ADD_TAX_SUCCESS';
+export const SAGA_UPDATE_TAX = 'SAGA_UPDATE_TAX';
+export const SAGA_UPDATE_TAX_SUCCESS = 'SAGA_UPDATE_TAX_SUCCESS';
+export const SAGA_GET_TAX = 'SAGA_GET_TAX';
+export const SAGA_GET_TAX_SUCCESS = 'SAGA_GET_TAX_SUCCESS';
+
+
 //SAGA CURRENCIES
 export const SAGA_FETCH_CURRENCIES = 'SAGA_FETCH_CURRENCIES';
 export const SAGA_FETCH_CURRENCIES_SUCCESS = 'SAGA_FETCH_CURRENCIES_SUCCESS';
@@ -73,3 +91,10 @@ export const APP_STATES = {
 
 export const GET_APP_STATE = 'GET_APP_STATE';
 export const SIGN_OUT = 'SIGN_OUT';
+
+
+//MESSGAES 
+export const MSG_CLIENT_CREATE_SUCCESS = 'Client created successfully';
+export const MSG_TAX_CREATE_SUCCESS = 'Tax created successfully';
+export const MSG_INVOICE_CREATE_SUCCESS = 'Invoice created successfully';
+export const MSG_PRODUCT_CREATE_SUCCESS = 'Product created successfully';

@@ -9,7 +9,7 @@ const Header = (props) => {
     const {logout, toggleSideBar} = props
     let organizationView;
     if (props.app.selectedAccount) {
-        organizationView = <span> | {props.app.selectedAccount.organization_name} </span>
+        organizationView = <span> {props.app.selectedAccount.organization_name} </span>
     }
     const onToggleSideBar = (e) => {
         toggleSideBar();
@@ -23,10 +23,11 @@ const Header = (props) => {
     return (
         <div className="header">
             <div className="clearfix">
-                <div className="pull-left"> {appName} {organizationView} </div>
+                <div className="pull-left"> {appName}  </div>
                 <span> <a href="" onClick={onToggleSideBar} className="sidebar-toggler"> <i className="fa fa-navicon"></i> </a> </span>
                 <div 
-                    className="pull-right app-user"> Welcome Kwesi | <a href="" onClick={onLogout} 
+                    className="pull-right app-user"> 
+                    Kwesi @ {organizationView} | <a href="" onClick={onLogout} 
                     to="/logout"> Log out </a> 
                 </div>
             </div>

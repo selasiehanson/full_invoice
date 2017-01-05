@@ -25,7 +25,8 @@
 
 class Invoice < ApplicationRecord
   enum status: {
-    draft: 'draft', approved: 'approved',
+    draft: 'draft',
+    approved: 'approved',
     sent: 'sent',
     unsent: 'unsent',
     paid: 'paid',
@@ -54,8 +55,8 @@ class Invoice < ApplicationRecord
   end
 
   def compute_total_tax
-    self.total_tax = invoice_lines.inject(0) do |result, _line|
-      result
+    self.total_tax = invoice_lines.inject(0) do |result, line|
+      result + line.tax
     end
   end
 

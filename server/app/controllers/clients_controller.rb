@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   before_action :find_client, only: [:show, :update, :destroy]
 
   def index
-    clients = current_tenant.clients
+    clients = current_tenant.clients.order(created_at: :desc)
     render json: clients
   end
 

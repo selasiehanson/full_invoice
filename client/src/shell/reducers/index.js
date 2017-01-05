@@ -9,6 +9,7 @@ import header from './header';
 import notification from './notifications'
 import app from './app';
 import currencies from './currencies'
+import taxes from './taxes'
 
 const contactsApp = combineReducers({
     links,
@@ -19,6 +20,7 @@ const contactsApp = combineReducers({
     notification,
     app,
     currencies,
+    taxes,
     form: formReducer,
     routing: routerReducer
 });

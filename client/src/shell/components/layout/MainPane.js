@@ -9,9 +9,11 @@ const MainPane = (props) => {
         klasses = "container app";
     }
     return (
-        <div className={klasses}>
+        <div>
             <NotificationPanel dispatch={dispatch} notification={notification} />
-            {props.children}
+            <div className={klasses}>                
+                {props.children}
+            </div>
         </div>
     )
 }

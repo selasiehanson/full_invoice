@@ -4,9 +4,11 @@ import {
     SAGA_FETCH_CLIENTS_SUCCESS,
     SAGA_GET_CLIENT_SUCCESS,
     SAGA_ADD_CLIENT_SUCCESS,
-    SAGA_UPDATE_CLIENT_SUCCESS
+    SAGA_UPDATE_CLIENT_SUCCESS,
+    MSG_CLIENT_CREATE_SUCCESS,
+    SHOW_NOTIFICATION
 } from '../constants';
-
+import {showClientCreatedMsg} from '../actions/clients';
 const CLIENTS = 'clients';
 export function* clientsFetchList(action) {
     //call api to get the users
@@ -17,6 +19,7 @@ export function* clientsFetchList(action) {
             type: SAGA_FETCH_CLIENTS_SUCCESS,
             clients: res.data
         });
+
     } catch (e) {
         //todo handle error case
     }
@@ -30,6 +33,8 @@ export function* addClient(action) {
             type: SAGA_ADD_CLIENT_SUCCESS,
             client: res.data
         });
+
+        yield put(showClientCreatedMsg());
     } catch (e) {
 
     }

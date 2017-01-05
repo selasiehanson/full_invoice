@@ -1,6 +1,9 @@
 class InvoicesController < ApplicationController
   def index
-    invoices = current_tenant.invoices.includes(:invoice_lines)
+    invoices = current_tenant
+               .invoices
+               .includes(:invoice_lines)
+               .order(updated_at: :desc)
     render json: invoices
   end
 

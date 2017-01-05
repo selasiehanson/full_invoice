@@ -3,7 +3,9 @@ import {
     PRODUCTS_EDIT,
     PRODUCT_CACHE,
     SAGA_ADD_PRODUCT,
-    PRODUCTS_DELETE
+    PRODUCTS_DELETE,
+    MSG_PRODUCT_CREATE_SUCCESS,
+    SHOW_NOTIFICATION
 } from '../constants';
 
 export const getProducts = () => {
@@ -33,3 +35,13 @@ export const cacheProduct = (client) => {
         data: client
     }
 }
+
+export const showProductCreatedMsg = () => {
+ return {
+        type: SHOW_NOTIFICATION,
+        payload: {
+            type: 'success',
+            content: MSG_PRODUCT_CREATE_SUCCESS
+        }
+    }
+};

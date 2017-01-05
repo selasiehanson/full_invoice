@@ -64,7 +64,7 @@ class InvoicePresenter
   def convert_to_date(date)
     Date.strptime(date, '%m/%d/%Y')
   end
-  
+
   def invoice_attributes
     {
       client_id: client_id,
@@ -73,6 +73,7 @@ class InvoicePresenter
       currency_id: currency_id,
       invoice_number: invoice_number,
       notes: notes,
+      status: :draft,
       account_id: account_id
     }
   end

@@ -8,6 +8,8 @@ import {
 } from '../constants';
 
 const INVOICES = 'invoices';
+import {showInvoiceCreatedMsg} from '../actions/invoices';
+
 export function* invoicesFetchList(action) {
     //call api to get the users
 
@@ -30,6 +32,8 @@ export function* addInvoice(action) {
             type: SAGA_ADD_INVOICE_SUCCESS,
             invoice: res.data
         });
+
+         yield put(showInvoiceCreatedMsg());
     } catch (e) {
 
     }

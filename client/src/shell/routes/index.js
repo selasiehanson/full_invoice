@@ -10,6 +10,8 @@ import InvoiceList from '../components/invoices/invoice-list';
 import Invoice from '../components/invoices/invoice';
 import ProductList from '../components/products/product-list';
 import Product from '../components/products/product';
+import TaxList from '../components/taxes/tax-list';
+import Tax from '../components/taxes/tax';
 import SignIn from '../components/layout/sign-in';
 import Register from '../components/layout/register';
 import AccountChooser from '../components/layout/account-chooser';
@@ -24,11 +26,16 @@ export default (
         </Route>
         <Route path="invoices">
             <IndexRoute component={InvoiceList} />
-            <Route path="new" component={Invoice} />
+            <Route path="new" component={Invoice} />            
         </Route>
         <Route path="products" >
             <IndexRoute component={ProductList} />
             <Route path="new" component={Product}> </Route>
+        </Route>
+        <Route path="/taxes" >
+            <IndexRoute component={TaxList} />
+            <Route path="/taxes/new" component={Tax}> </Route>
+            <Route path="/taxes/:id/edit" component={Tax}> </Route>
         </Route>
         <Route path="reports" component={Report} />
         <Route path="signup" component={Register} />

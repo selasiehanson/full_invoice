@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
-// import jQuery from "jquery";
-// window.$ = window.jQuery = jQuery
+import jQuery from "jquery";
+window.$ = window.jQuery = jQuery
 // var $ = require('jquery')
 // window.$ = window.jQuery = $;
 // import 'bootstrap/dist/js/bootstrap.js'

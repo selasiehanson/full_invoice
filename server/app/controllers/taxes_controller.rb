@@ -1,10 +1,9 @@
 class TaxesController < ApplicationController
-
   rescue_from ActiveRecord::RecordNotFound, with: :tax_not_found
   before_action :find_tax, only: [:show, :update, :destroy]
 
   def index
-    taxes = current_tenant.taxes
+    taxes = current_tenant.taxes.order(updated_at: :desc)
     render json: taxes
   end
 
@@ -38,7 +37,7 @@ class TaxesController < ApplicationController
   private
 
   def tax_params
-    params.require(:tax).permit(:name, :description,:amount)
+    params.require(:tax).permit(:name, :description, :amount)
   end
 
   def find_tax

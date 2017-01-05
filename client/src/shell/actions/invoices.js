@@ -3,7 +3,9 @@ import {
     INVOICES_EDIT,
     INVOICE_CACHE,
     SAGA_ADD_INVOICE,
-    INVOICES_DELETE
+    INVOICES_DELETE,
+    MSG_INVOICE_CREATE_SUCCESS,
+    SHOW_NOTIFICATION
 } from '../constants';
 
 export const getInvoices = () => {
@@ -33,3 +35,13 @@ export const cacheInvoice = (invoice) => {
         data: invoice
     }
 }
+
+export const showInvoiceCreatedMsg = () => {
+ return {
+        type: SHOW_NOTIFICATION,
+        payload: {
+            type: 'success',
+            content: MSG_INVOICE_CREATE_SUCCESS
+        }
+    }
+};
