@@ -5,7 +5,9 @@ import {
     SAGA_ADD_PRODUCT,
     PRODUCTS_DELETE,
     MSG_PRODUCT_CREATE_SUCCESS,
-    SHOW_NOTIFICATION
+    SHOW_NOTIFICATION,
+    PRODUCTS_SHOW_NEW,
+    SAGA_GET_PRODUCT
 } from '../constants';
 
 export const getProducts = () => {
@@ -19,6 +21,14 @@ export const addProduct = (client) => {
         type: SAGA_ADD_PRODUCT,
         data: client
     };
+}
+
+export const getProduct = (id) => {
+    return { type: SAGA_GET_PRODUCT, id }
+}
+
+export const showNewProduct = () => {
+    return { type: PRODUCTS_SHOW_NEW }
 }
 
 export const editProduct = (id) => {
@@ -37,7 +47,7 @@ export const cacheProduct = (client) => {
 }
 
 export const showProductCreatedMsg = () => {
- return {
+    return {
         type: SHOW_NOTIFICATION,
         payload: {
             type: 'success',

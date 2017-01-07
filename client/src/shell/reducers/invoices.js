@@ -2,9 +2,11 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     SAGA_FETCH_INVOICES_SUCCESS,
     SAGA_ADD_INVOICE_SUCCESS,
-    SAGA_UPDATE_INVOICE_SUCCESS
+    SAGA_UPDATE_INVOICE_SUCCESS,
+    SAGA_GET_INVOICE_SUCCESS,
+    INVOICES_SHOW_NEW
 } from '../constants';
-import {dateHelpers} from '../utils/date-helpers';
+import { dateHelpers } from '../utils/date-helpers';
 
 const initialState = {
     editMode: "",
@@ -17,29 +19,10 @@ const initialState = {
 const getInvoice = (all, id) => all.filter(x => x.id === id)[0];
 const invoices = (state = initialState, action) => {
     switch (action.type) {
-        case LOCATION_CHANGE:
-            //console.log(state);
-            var reg = /^\/invoices\/\d+/;
-            var path = action.payload.pathname;
-            var {all} = state;
-
-            if (reg.test(path)) {
-                var id = path.split("/")[2]
-                const current = getInvoice(all, +id);
-                //console.log(current)
-                console.log('route changed')
-                return { all, current, editMode: "Edit" }
-            } else if (path.includes("invoices/new")) {
-                return { all, current: {}, editMode: "New" }
-            }
-            else {
-                return { all, current: null, editMode: '' }
-            }
-
         case SAGA_FETCH_INVOICES_SUCCESS:
             const old = action.invoices;
-            const invoices = action.invoices.map ((invoice) => {
-                let newInvoice = {...invoice};
+            const invoices = action.invoices.map((invoice) => {
+                let newInvoice = { ...invoice };
                 newInvoice.client = invoice.client.name;
                 newInvoice.due_date = dateHelpers.simpleHumanDate(newInvoice.due_date);
                 newInvoice.invoice_date = dateHelpers.simpleHumanDate(newInvoice.invoice_date);
@@ -47,13 +30,20 @@ const invoices = (state = initialState, action) => {
                 newInvoice.total_tax = `${newInvoice.currency.currency_code} ${newInvoice.total_tax}`;
                 return newInvoice;
             })
-            return {...state, all: invoices, afterSave: false, original: old }
+            return { ...state, all: invoices, afterSave: false, original: old }
+
+        case INVOICES_SHOW_NEW:
+            return { ...state, current: {} }
 
         case SAGA_ADD_INVOICE_SUCCESS:
             var all = [action.invoice].concat(state.all);
             let current = action.invoice;
             console.log("added")
-            return {...state, all, current, editMode: '', afterSave: true };
+            return { ...state, all, current, editMode: '', afterSave: true };
+
+        case SAGA_GET_INVOICE_SUCCESS:
+            return { ...state, current: action.invoice }
+
 
         case SAGA_UPDATE_INVOICE_SUCCESS:
             //take out old record
@@ -65,7 +55,7 @@ const invoices = (state = initialState, action) => {
                 all = [action.invoice].concat(all);
             }
 
-            return {...state, all, afterSave: true, editMode: '', current: action.invoice };
+            return { ...state, all, afterSave: true, editMode: '', current: action.invoice };
 
         default:
             return state;

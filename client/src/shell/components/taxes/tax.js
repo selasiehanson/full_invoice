@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 import { reduxForm, Field } from 'redux-form';
 import { renderInput } from '../utils/forms';
 import { connect } from 'react-redux';
-import { addTax, cacheTax , getTax} from '../../actions/taxes';
+import { addTax, cacheTax, getTax, showNewTax } from '../../actions/taxes';
 import { hashHistory } from 'react-router';
-
+import _ from 'lodash';
 
 const validate = (values) => {
     const errors = {};
@@ -19,7 +19,7 @@ const validate = (values) => {
 
     if (!values.description) {
         errors.description = 'Please provide an description.';
-    }else if (values.description.length < 3) {
+    } else if (values.description.length < 3) {
         errors.description = 'Description cannot be less than 3 characters.'
     }
 
@@ -27,7 +27,8 @@ const validate = (values) => {
 }
 
 
-const Form = ({params, mode, onAddTax, handleSubmit, invalid, pristine, submitting}) => {
+const Form = (props) => {
+    let {params, mode, onAddTax, handleSubmit, invalid, pristine, submitting} = props;
     return (
         <div className="clearfix">
             <div className="content-header">
@@ -37,8 +38,8 @@ const Form = ({params, mode, onAddTax, handleSubmit, invalid, pristine, submitti
             <div className="col-md-6">
                 <form onSubmit={handleSubmit(onAddTax)}>
                     <Field name="name" component={renderInput} placeholder="Name" />
-                    <Field name="amount" component={renderInput} placeholder="Amount" />  
-                    <Field name="description" component={renderInput} placeholder="Description" />                   
+                    <Field name="amount" component={renderInput} placeholder="Amount" />
+                    <Field name="description" component={renderInput} placeholder="Description" />
                     <div className="pull-right form-buttons" >
                         <Link to="/taxes" className="btn btn-default" > Cancel </Link>
                         <button type="submit" className="btn btn-success" disabled={pristine || submitting}> Submit </button>
@@ -52,6 +53,7 @@ const Form = ({params, mode, onAddTax, handleSubmit, invalid, pristine, submitti
 
 let TaxForm = reduxForm({
     form: 'tax',
+    enableReinitialize: true,
     validate
 })(Form);
 
@@ -59,9 +61,17 @@ class TaxContainer extends Component {
 
     componentWillMount() {
         let id = this.props.params.id;
-        this.props.getTax(id);
-
+        if (id) {
+            this.props.getTax(id);
+        }
     }
+
+    componentWillReceiveProps() {
+        if (!this.props.params.id && !_.isEqual(this.props.current, {})) {
+            this.props.showNewTax();
+        }
+    }
+
     shouldComponentUpdate() {
         console.log(this.props)
         if (this.props.afterSave) {
@@ -81,7 +91,8 @@ class TaxContainer extends Component {
             this.goToTaxes();
             return null;
         }
-        
+        ///console.log('RENDERING')
+        //console.log(this.props)
         return (
             <div>
                 <TaxForm  {...this.props} />
@@ -91,11 +102,15 @@ class TaxContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps)
+    // if (!state.taxes.current) {
+    //     console.log('absent');
+    // }
+
+    console.log(state.taxes.current);
     return {
         ...ownProps,
         ...state.taxes,
-        initialValues: state.taxes.current,
+        initialValues: state.taxes.current
     }
 }
 
@@ -109,6 +124,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getTax(id) {
             dispatch(getTax(id));
+        },
+        showNewTax() {
+            dispatch(showNewTax())
         },
         onAddTax(tax) {
             console.log(tax)

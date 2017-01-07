@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 import { reduxForm, Field } from 'redux-form';
 import { renderInput } from '../utils/forms';
 import { connect } from 'react-redux';
-import { addClient, cacheClient } from '../../actions/clients';
+import { addClient, cacheClient, getClient, showNewClient } from '../../actions/clients';
 import { hashHistory } from 'react-router';
-
+import _ from 'lodash';
 
 const validate = (values) => {
     const errors = {};
@@ -55,10 +55,25 @@ const Form = ({params, mode, onAddClient, handleSubmit, invalid, pristine, submi
 
 let ClientForm = reduxForm({
     form: 'client',
+    enableReinitialize: true,
     validate
 })(Form);
 
 class ClientContainer extends Component {
+
+    componentWillMount() {
+        let id = this.props.params.id;
+        if (id) {
+            this.props.getClient(id);
+        }
+    }
+
+    componentWillReceiveProps() {
+        if (!this.props.params.id && !_.isEqual(this.props.current, {})) {
+            this.props.showNewClient();
+        }
+    }
+
     shouldComponentUpdate() {
         console.log(this.props)
         if (this.props.afterSave) {
@@ -89,7 +104,9 @@ class ClientContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        ...state.clients
+        ...ownProps,
+        ...state.clients,
+        initialValues: state.clients.current
     }
 }
 
@@ -100,6 +117,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDeleteClick(id) {
             //dispatch(deleteContact(id))
+        },
+        getClient(id) {
+            dispatch(getClient(id));
+        },
+        showNewClient() {
+            dispatch(showNewClient())
         },
         onAddClient(client) {
             console.log(client)

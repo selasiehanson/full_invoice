@@ -20,17 +20,20 @@ export default (
         <IndexRoute component={Dashboard} />
         <Route path="dashboard" component={Dashboard} />
         <Route path="chooser" component={AccountChooser} />
-        <Route path="clients">
+        <Route path="/clients">
             <IndexRoute component={ClientList} />
-            <Route path="new" component={Client} />
+            <Route path="/clients/new" component={Client} />
+            <Route path="/clients/:id/edit" component={Client} />
         </Route>
-        <Route path="invoices">
+        <Route path="/invoices">
             <IndexRoute component={InvoiceList} />
-            <Route path="new" component={Invoice} />            
+            <Route path="/invoices/new" component={Invoice} />
+            <Route path="/invoices/:id/edit" component={Invoice} />
         </Route>
-        <Route path="products" >
+        <Route path="/products" >
             <IndexRoute component={ProductList} />
-            <Route path="new" component={Product}> </Route>
+            <Route path="/products/new" component={Product}> </Route>
+            <Route path="/products/:id/edit" component={Product}> </Route>
         </Route>
         <Route path="/taxes" >
             <IndexRoute component={TaxList} />

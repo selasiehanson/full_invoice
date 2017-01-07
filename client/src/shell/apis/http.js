@@ -21,6 +21,7 @@ const headerConfig = {
 const config = {
     'headers': headerConfig
 }
+
 export default class ApiFetcher {
 
     static getConfig() {
@@ -53,6 +54,4 @@ export default class ApiFetcher {
             headers: headers
         });
     }
-
-
 }

@@ -5,7 +5,8 @@ import {
     CLIENTS_EDIT,
     CLIENTS_DELETE,
     SAGA_FETCH_CLIENTS_SUCCESS,
-    CLIENT_CACHE
+    CLIENT_CACHE,
+    SAGA_GET_CLIENT_SUCCESS
 } from '../constants';
 
 const getClient = (clients, id) => clients.filter(x => x.id === id);
@@ -20,23 +21,6 @@ const initialState = {
 const clients = (state = initialState, action) => {
     //console.log(action)
     switch (action.type) {
-        case LOCATION_CHANGE:
-            //console.log(state);
-            var reg = /^\/clients\/\d+/;
-            var path = action.payload.pathname;
-            var {all} = state;
-
-            if (reg.test(path)) {
-                var id = path.split("/")[2]
-                const current = getClient(all, +id);
-                return { all, current, mode: "Edit" }
-            } else if (path.includes("clients/new")) {
-                return { all, current: {}, mode: "New" }
-            }
-            else {
-                return { all, current: null }
-            }
-            break;
         case SAGA_FETCH_CLIENTS_SUCCESS:
             return { ...state, all: action.clients, afterSave: false }
         case CLIENTS_SHOW_NEW:
@@ -45,6 +29,10 @@ const clients = (state = initialState, action) => {
             return { ...state, current: action.data }
         case SAGA_ADD_CLIENT_SUCCESS:
             return { ...state, afterSave: true };
+            
+        case SAGA_GET_CLIENT_SUCCESS:
+            return {...state, current: action.client}
+
         case CLIENTS_EDIT:
             var { all } = state;
             var current = getClient(action.id)            

@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
   end
 
   def find_product
-    @product = current_tenant.product.find(params[:id])
+    @product = current_tenant.products.find(params[:id])
   end
 
   def product_not_found

@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from '../utils/table'
 import { Link } from 'react-router';
 import { getProducts } from '../../actions/products';
+import { hashHistory } from 'react-router';
 
 class ProductList extends Component {
 
@@ -11,8 +12,8 @@ class ProductList extends Component {
         this.handleEvent = this.handleEvent.bind(this);
     }
 
-    componentWillMount(){
-        this.props.loadProducts();        
+    componentWillMount() {
+        this.props.loadProducts();
     }
 
     //calls the appropriate method based on the action button/text that 
@@ -23,14 +24,16 @@ class ProductList extends Component {
 
     viewProduct(product) {
         console.log(`viewing product ${product.id}`);
+        hashHistory.push(`/products/${product.id}`);
     }
 
     editProduct(product) {
         console.log(`editing product ${product.id}`);
+        hashHistory.push(`/products/${product.id}/edit`);
     }
 
     render() {
-        let {products , current, children, onEditClick, onDeleteClick} = this.props;
+        let {products, current, children, onEditClick, onDeleteClick} = this.props;
         let tableFields = [
             { name: 'name', header: "Name" },
             { name: 'description', header: "Description" },
@@ -40,8 +43,8 @@ class ProductList extends Component {
             { name: 'edit', type: 'action', header: '', action: 'editProduct' }
         ];
 
-        let content = <div className="zero-items"> 
-            <p>No products present, kindly add one. </p> 
+        let content = <div className="zero-items">
+            <p>No products present, kindly add one. </p>
             <p> <Link to="/products/new" className="btn btn-primary"> New Product </Link> </p>
         </div>
         let newProductLink;
@@ -50,8 +53,8 @@ class ProductList extends Component {
                 return <span> <i className="fa fa-eye"> </i> </span>
             },
             edit(f) {
-                    return <span> <i className="fa fa-pencil"> </i> </span>
-                }
+                return <span> <i className="fa fa-pencil"> </i> </span>
+            }
         }
 
         if (products.length !== 0) {
@@ -60,10 +63,10 @@ class ProductList extends Component {
                 tableFields={tableFields}
                 handleEvent={this.handleEvent}
                 columnWrappers={columnWrappers} />
-            
+
             newProductLink = <Link to="/products/new" className="btn btn-primary"> New Product </Link>
         }
-                 
+
         return (
             <div>
                 <div className="content-header">

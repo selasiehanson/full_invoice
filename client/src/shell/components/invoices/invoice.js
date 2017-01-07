@@ -3,19 +3,22 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import Select from 'react-select';
 import { Link } from 'react-router';
-import { 
-    renderInput, 
-    renderCheckbox, 
-    renderRadio, 
+import {
+    renderInput,
+    renderCheckbox,
+    renderRadio,
     renderDate,
-    renderSelect 
+    renderSelect
 } from '../utils/forms';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import { getProducts } from '../../actions/products';
 import { getClients } from '../../actions/clients';
-import { addInvoice, cacheInvoice } from '../../actions/invoices';
-import { getCurrencies } from '../../actions'
+import { addInvoice, cacheInvoice, getInvoice, showNewInvoice } from '../../actions/invoices';
+import { getCurrencies } from '../../actions';
+import { hashHistory } from 'react-router';
+import _ from 'lodash';
+
 
 const validate = (values) => {
     const errors = {};
@@ -25,7 +28,7 @@ const validate = (values) => {
 
 const renderLineItems = (props) => {
     console.log(props);
-    let {fields, products}  = props;
+    let {fields, products} = props;
     const addLine = () => {
         console.log('adding a line')
         let newItem = {
@@ -56,7 +59,7 @@ const renderLineItems = (props) => {
                 <td>
                     <Field name={`${line}.price`} component={renderInput} className="input-sm tright" />
                 </td>
-                
+
                 <td>
                     <Field name={`${line}.tax`} component={renderInput} className="input-sm tright" />
                 </td>
@@ -85,7 +88,7 @@ const renderLineItems = (props) => {
                             <th className="item-name-col"> Item </th>
                             <th className="item-description-col"> Description </th>
                             <th> Quantity </th>
-                            <th> Price </th>                            
+                            <th> Price </th>
                             <th> Tax </th>
                             <th> Line Total </th>
                             <th className="col-1"></th>
@@ -103,11 +106,11 @@ const renderLineItems = (props) => {
 class Form extends Component {
 
     constructor(props) {
-        super(props);        
+        super(props);
     }
 
     handleChange(date) {
-        
+
     }
 
     onInputChange() {
@@ -122,20 +125,20 @@ class Form extends Component {
     }
 
     renderInvoiceHeader() {
-        
+
         return (
             <div className="row">
                 <div className="col-md-3">
-                    <Field name="invoice_date" component={renderDate} placeholder="Invoice Date" />                    
+                    <Field name="invoice_date" component={renderDate} placeholder="Invoice Date" />
                 </div>
                 <div className="col-md-3">
-                    <Field name="due_date" component={renderDate} placeholder="Due Date" />                    
+                    <Field name="due_date" component={renderDate} placeholder="Due Date" />
                 </div>
                 <div className="col-md-3">
-                   <Field name="client" component={renderSelect} placeholder="Client" options={this.props.clients}/>
+                    <Field name="client" component={renderSelect} placeholder="Client" options={this.props.clients} />
                 </div>
                 <div className="col-md-3">
-                     <Field name="invoice_number" component={renderInput} placeholder="Invoice Number" />
+                    <Field name="invoice_number" component={renderInput} placeholder="Invoice Number" />
                 </div>
             </div>
         );
@@ -147,11 +150,11 @@ class Form extends Component {
                 <div className="summing-box clearfix">
                     <div className="row">
                         <div className="col-sm-3 pull-right">
-                            <Field name="currency" 
-                                component={renderSelect} 
-                                placeholder="Currency" 
+                            <Field name="currency"
+                                component={renderSelect}
+                                placeholder="Currency"
                                 options={this.props.currencies}
-                                labelKey="currency_code" />                            
+                                labelKey="currency_code" />
                         </div>
                     </div>
                     <div className="row">
@@ -179,7 +182,7 @@ class Form extends Component {
 
     render() {
 
-        let {handleSubmit, saveInvoice, pristine, submitting, products, clients} = this.props;        
+        let {handleSubmit, saveInvoice, pristine, submitting, products, clients} = this.props;
         let actionLinks = <span className="pull-right">
             <Link to="/invoices" className="btn btn-default"> Cancel </Link>
             <button type="submit" className="btn btn-success" disabled={pristine || submitting}> Create invoice </button>
@@ -194,7 +197,7 @@ class Form extends Component {
                 <form onSubmit={handleSubmit(saveInvoice)}>
                     <div>
                         {this.renderInvoiceHeader()}
-                        <FieldArray name="invoice_lines" component={renderLineItems} products={products}/>                        
+                        <FieldArray name="invoice_lines" component={renderLineItems} products={products} />
                         <div>
                             {this.renderInvoicerFooter()}
                         </div>
@@ -210,17 +213,28 @@ class Form extends Component {
 
 let InvoiceForm = reduxForm({
     form: 'invoice',
+    enableReinitialize: true,
     validate
 })(Form);
 
 
 class InvoiceContainer extends Component {
-    componentWillMount(){
+    componentWillMount() {
+        let id = this.props.params.id;
+        if (id) {
+            this.props.getInvoice(id);
+        }
         this.props.loadResources();
     }
 
-    render (){
-      return (
+    componentWillReceiveProps() {
+        if (!this.props.params.id && !_.isEqual(this.props.current, {})) {
+            this.props.showNewInvoice();
+        }
+    }
+
+    render() {
+        return (
             <div>
                 <InvoiceForm {...this.props} />
             </div>
@@ -231,10 +245,12 @@ class InvoiceContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        ...ownProps,
         ...state.invoices,
         clients: state.clients.all,
         products: state.products.all,
-        currencies: state.currencies.all      
+        currencies: state.currencies.all,
+        initialValues: state.invoices.current
     }
 }
 
@@ -250,6 +266,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDeleteClick(id) {
             //dispatch(deleteContact(id))
+        },
+        getInvoice(id) {
+            dispatch(getInvoice(id));
+        },
+        showNewInvoice() {
+            dispatch(showNewInvoice())
         },
         saveInvoice(invoice) {
             console.log(invoice)

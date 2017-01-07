@@ -1,18 +1,20 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from '../utils/table';
 import { Link } from 'react-router';
-import {getInvoices } from '../../actions/invoices';
+import { getInvoices } from '../../actions/invoices';
+import { hashHistory } from 'react-router';
 
-class  InvoiceList extends Component {
 
-    constructor(props){
+class InvoiceList extends Component {
+
+    constructor(props) {
         super(props)
         this.handleEvent = this.handleEvent.bind(this);
     }
 
-    componentWillMount(){
-        this.props.loadInvoices();        
+    componentWillMount() {
+        this.props.loadInvoices();
     }
 
     //calls the appropriate method based on the action button/text that 
@@ -24,17 +26,19 @@ class  InvoiceList extends Component {
 
     viewInvoice(invoice) {
         console.log(`viewing invoice ${invoice.id}`);
+        hashHistory.push(`/invoices/${invoice.id}`);
     }
 
     editInvoice(invoice) {
         console.log(`editing invoice ${invoice.id}`);
+        hashHistory.push(`/invoices/${invoice.id}/edit`);
     }
 
     render() {
-     
+
         let {all, current, children, onEditClick, onDeleteClick} = this.props;
         let tableFields = [
-            {name: 'invoice_number', header: 'Invoice Number'},
+            { name: 'invoice_number', header: 'Invoice Number' },
             { name: 'invoice_date', header: "Invoice Date" },
             { name: 'due_date', header: "Due Date" },
             { name: "client", header: "Client" },
@@ -44,19 +48,19 @@ class  InvoiceList extends Component {
             { name: 'edit', type: 'action', header: '', action: 'editInvoice' }
         ];
 
-        let content = <div className="zero-items"> 
+        let content = <div className="zero-items">
             <p> No invoices present, kindly add one. </p>
             <Link to="/invoices/new" className="btn btn-primary"> New invoice </Link>
 
-         </div>
+        </div>
 
         let columnWrappers = {
             view(f) {
                 return <span> <i className="fa fa-eye"> </i> </span>
             },
             edit(f) {
-                    return <span> <i className="fa fa-pencil"> </i> </span>
-                }
+                return <span> <i className="fa fa-pencil"> </i> </span>
+            }
         }
 
         if (all.length !== 0) {
@@ -90,7 +94,7 @@ const mapStateToProps = (state, ownState) => {
 
 const mapDispatchToProps = (dispatch, state) => {
     return {
-       loadInvoices() {
+        loadInvoices() {
             dispatch(getInvoices())
         }
     }

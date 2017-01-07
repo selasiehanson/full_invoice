@@ -2,7 +2,8 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     SAGA_RECEIPTS_FETCH_LIST_SUCCESS,
     SAGA_ADD_RECEIPT_SUCCESS,
-    SAGA_UPDATE_RECEIPT_SUCCESS
+    SAGA_UPDATE_RECEIPT_SUCCESS,
+
 } from '../constants';
 
 const initialState = {
@@ -15,25 +16,6 @@ const initialState = {
 const getReceipt = (all, id) => all.filter(x => x.id === id)[0];
 const receipts = (state = initialState, action) => {
     switch (action.type) {
-        case LOCATION_CHANGE:
-            //console.log(state);
-            var reg = /^\/receipts\/\d+/;
-            var path = action.payload.pathname;
-            var {all} = state;
-
-            if (reg.test(path)) {
-                var id = path.split("/")[2]
-                const current = getReceipt(all, +id);
-                //console.log(current)
-                console.log('route changed')
-                return { all, current, editMode: "Edit" }
-            } else if (path.includes("receipts/new")) {
-                return { all, current: {}, editMode: "New" }
-            }
-            else {
-                return { all, current: null, editMode: '' }
-            }
-
         case SAGA_RECEIPTS_FETCH_LIST_SUCCESS:
             return {...state, all: action.receipts, afterSave: false }
 

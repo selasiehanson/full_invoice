@@ -5,7 +5,8 @@ import {
     PRODUCTS_EDIT,
     PRODUCTS_DELETE,
     SAGA_FETCH_PRODUCTS_SUCCESS,
-    PRODUCT_CACHE
+    PRODUCT_CACHE,
+    SAGA_GET_PRODUCT_SUCCESS,
 } from '../constants';
 
 const getProducts = (products, id) => products.filter(x => x.id === id);
@@ -20,31 +21,21 @@ const initialState = {
 const products = (state = initialState, action) => {
     //console.log(action)
     switch (action.type) {
-        case LOCATION_CHANGE:
-            //console.log(state);
-            var reg = /^\/products\/\d+/;
-            var path = action.payload.pathname;
-            var {all} = state;
-
-            if (reg.test(path)) {
-                var id = path.split("/")[2]
-                const current = getProducts(all, +id);
-                return { all, current, mode: "Edit" }
-            } else if (path.includes("products/new")) {
-                return { all, current: {}, mode: "New" }
-            }
-            else {
-                return { all, current: null }
-            }
-            break;
         case SAGA_FETCH_PRODUCTS_SUCCESS:
             return { ...state, all: action.products, afterSave: false }
+
         case PRODUCTS_SHOW_NEW:
             return { ...state, current: {} }
+
         case PRODUCT_CACHE:
             return { ...state, current: action.data }
+
         case SAGA_ADD_PRODUCT_SUCCESS:
             return { ...state, afterSave: true };
+
+        case SAGA_GET_PRODUCT_SUCCESS:
+            return { ...state, current: action.product }
+
         case PRODUCTS_EDIT:
             var { all } = state;
             var current = getProducts(action.id)

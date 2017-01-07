@@ -5,7 +5,9 @@ import {
     SAGA_ADD_INVOICE,
     INVOICES_DELETE,
     MSG_INVOICE_CREATE_SUCCESS,
-    SHOW_NOTIFICATION
+    SHOW_NOTIFICATION,
+    SAGA_GET_INVOICE,
+    INVOICES_SHOW_NEW
 } from '../constants';
 
 export const getInvoices = () => {
@@ -17,8 +19,16 @@ export const getInvoices = () => {
 export const addInvoice = (invoice) => {
     return {
         type: SAGA_ADD_INVOICE,
-        data: {invoice: invoice}
+        data: { invoice: invoice }
     };
+}
+
+export const getInvoice = (id) => {
+    return { type: SAGA_GET_INVOICE, id }
+}
+
+export const showNewInvoice = () => {
+    return { type: INVOICES_SHOW_NEW }
 }
 
 export const editInvoice = (id) => {
@@ -37,7 +47,7 @@ export const cacheInvoice = (invoice) => {
 }
 
 export const showInvoiceCreatedMsg = () => {
- return {
+    return {
         type: SHOW_NOTIFICATION,
         payload: {
             type: 'success',

@@ -1,10 +1,15 @@
 class InvoicesController < ApplicationController
+  before_action :find_invoice, only: [:show]
   def index
     invoices = current_tenant
                .invoices
                .includes(:invoice_lines)
                .order(updated_at: :desc)
     render json: invoices
+  end
+
+  def show
+    render json: @invoice
   end
 
   def create
@@ -27,5 +32,9 @@ class InvoicesController < ApplicationController
                   :invoice_number,
                   invoice_lines: [:invoice_id, :product_id, :quantity,
                                   :discount_percentage, :discount_flat, :price])
+  end
+
+  def find_invoice
+    @invoice = current_tenant.invoices.find(params[:id])
   end
 end

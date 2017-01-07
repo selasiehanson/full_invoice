@@ -6,7 +6,8 @@ import {
     TAXES_DELETE,
     MSG_TAX_CREATE_SUCCESS,
     SHOW_NOTIFICATION,
-    SAGA_GET_TAX
+    SAGA_GET_TAX,
+    TAXES_SHOW_NEW
 } from '../constants';
 
 export const getTaxes = () => {
@@ -22,6 +23,10 @@ export const addTax = (tax) => {
     };
 }
 
+
+export const showNewTax = () => {
+    return { type: TAXES_SHOW_NEW }
+}
 
 export const getTax = (id) => {
     return { type: SAGA_GET_TAX, id }

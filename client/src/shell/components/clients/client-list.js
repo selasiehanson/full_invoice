@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Table from '../utils/table'
 import { Link } from 'react-router';
 import { getClients } from '../../actions/clients';
+import { hashHistory } from 'react-router';
 
 class ClientList extends Component {
 
@@ -22,10 +23,12 @@ class ClientList extends Component {
 
     viewClient(client) {
         console.log(`viewing client ${client.id}`)
+        hashHistory.push(`/clients/${client.id}`);
     }
 
     editClient(client) {
-        console.log(`editing client ${client.id}`)
+        console.log(`editing client ${client.id}`);
+        hashHistory.push(`/clients/${client.id}/edit`);
     }
 
     render() {

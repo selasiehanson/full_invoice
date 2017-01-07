@@ -5,7 +5,9 @@ import {
     SAGA_ADD_CLIENT,
     CLIENTS_DELETE,
     MSG_CLIENT_CREATE_SUCCESS,
-    SHOW_NOTIFICATION
+    SHOW_NOTIFICATION,
+    CLIENTS_SHOW_NEW,
+    SAGA_GET_CLIENT
 } from '../constants';
 
 export const getClients = () => {
@@ -19,6 +21,14 @@ export const addClient = (client) => {
         type: SAGA_ADD_CLIENT,
         data: client
     };
+}
+
+export const getClient = (id) => {
+    return { type: SAGA_GET_CLIENT, id }
+}
+
+export const showNewClient = () => {
+    return { type: CLIENTS_SHOW_NEW }
 }
 
 export const editClient = (id) => {
