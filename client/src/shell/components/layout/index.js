@@ -5,10 +5,10 @@ import SideBarContainer from '../../containers/SideBarContainer'
 import { connect } from 'react-redux';
 import { 
     APP_STATES, 
-    ACCOUNT_SET, 
+    // ACCOUNT_SET, 
     SHOW_NOTIFICATION, 
     MSG_CLIENT_CREATE_SUCCESS } from '../../constants';
-import SignIn from './sign-in';
+// import SignIn from './sign-in';
 import { checkAppState } from '../../actions/auth';
 import { hashHistory } from 'react-router';
 
@@ -44,10 +44,8 @@ class Layout extends Component {
             {this.props.children}
         </div>
 
-        if (app.state === APP_STATES.AUTHENTICATED) {
-            let sideBar;
+        if (app.state === APP_STATES.AUTHENTICATED) {            
             if (app.selectedAccount) {
-                console.log("pause");
                 layout = <div>
                     <HeaderContainer />
                     <SideBarContainer />

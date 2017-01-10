@@ -25,18 +25,16 @@ class InvoiceList extends Component {
 
 
     viewInvoice(invoice) {
-        console.log(`viewing invoice ${invoice.id}`);
         hashHistory.push(`/invoices/${invoice.id}`);
     }
 
     editInvoice(invoice) {
-        console.log(`editing invoice ${invoice.id}`);
         hashHistory.push(`/invoices/${invoice.id}/edit`);
     }
 
     render() {
 
-        let {all, current, children, onEditClick, onDeleteClick} = this.props;
+        let {all} = this.props;
         let tableFields = [
             { name: 'invoice_number', header: 'Invoice Number' },
             { name: 'invoice_date', header: "Invoice Date" },

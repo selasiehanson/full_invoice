@@ -9,7 +9,7 @@ class InvoicesController < ApplicationController
   end
 
   def show
-    render json: @invoice
+    render json: @invoice, serializer: SingleInvoiceSerializer
   end
 
   def create

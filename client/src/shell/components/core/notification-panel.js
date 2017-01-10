@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
-import { showNotification, hideNotification } from '../../actions';
+import { hideNotification } from '../../actions';
 import jQuery from 'jquery';
 let $ = jQuery;
 export default class NotificationPanel extends Component {

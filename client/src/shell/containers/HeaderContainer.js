@@ -19,7 +19,6 @@ const mapDispatchToProps = (dispatch) => {
 
         },
         logout() {
-            console.log('logging out');
             dispatch(signout())
             hashHistory.push('/signin')
         }

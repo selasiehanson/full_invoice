@@ -59,14 +59,13 @@ class AuthManager {
 const app = (state = initialState, action) => {
     switch (action.type) {
         case ACCOUNT_SELECTED:
-            console.log(action.data)
             setCurrentAccount(action.data);
             return { ...state, selectedAccount: action.data }
 
         case SAGA_GET_USER_PROFILE_SUCCESS:
             setUser(action.data);
             return { ...state, profile: action.data }
-            break;
+            
         case SIGN_OUT:
             clearDetailsOnSignout();
             return { ...state, state: APP_STATES.NOT_AUTHENTICATED, justSignedIn: false, justSignedOut: true };

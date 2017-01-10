@@ -28,7 +28,7 @@ const validate = (values) => {
 
 
 const Form = (props) => {
-    let {params, mode, onAddTax, handleSubmit, invalid, pristine, submitting} = props;
+    let { mode, onAddTax, handleSubmit, pristine, submitting} = props;
     return (
         <div className="clearfix">
             <div className="content-header">
@@ -73,7 +73,6 @@ class TaxContainer extends Component {
     }
 
     shouldComponentUpdate() {
-        console.log(this.props)
         if (this.props.afterSave) {
             this.goToTaxes();
             return false;
@@ -91,8 +90,7 @@ class TaxContainer extends Component {
             this.goToTaxes();
             return null;
         }
-        ///console.log('RENDERING')
-        //console.log(this.props)
+        
         return (
             <div>
                 <TaxForm  {...this.props} />
@@ -102,11 +100,6 @@ class TaxContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    // if (!state.taxes.current) {
-    //     console.log('absent');
-    // }
-
-    console.log(state.taxes.current);
     return {
         ...ownProps,
         ...state.taxes,
@@ -129,11 +122,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(showNewTax())
         },
         onAddTax(tax) {
-            console.log(tax)
-            console.log('adding a tax')
             dispatch(cacheTax(tax));
-            dispatch(addTax(tax));
-            console.log('after dispatch')
+            dispatch(addTax(tax));            
         }
     }
 }

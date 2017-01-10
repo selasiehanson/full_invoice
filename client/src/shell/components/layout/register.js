@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import {renderInput} from '../utils/forms';
 import { connect } from 'react-redux';

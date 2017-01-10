@@ -1,9 +1,7 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     PRODUCTS_SHOW_NEW,
     SAGA_ADD_PRODUCT_SUCCESS,
     PRODUCTS_EDIT,
-    PRODUCTS_DELETE,
     SAGA_FETCH_PRODUCTS_SUCCESS,
     PRODUCT_CACHE,
     SAGA_GET_PRODUCT_SUCCESS,
@@ -19,7 +17,6 @@ const initialState = {
 };
 
 const products = (state = initialState, action) => {
-    //console.log(action)
     switch (action.type) {
         case SAGA_FETCH_PRODUCTS_SUCCESS:
             return { ...state, all: action.products, afterSave: false }

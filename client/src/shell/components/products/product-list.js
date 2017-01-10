@@ -23,17 +23,15 @@ class ProductList extends Component {
     }
 
     viewProduct(product) {
-        console.log(`viewing product ${product.id}`);
         hashHistory.push(`/products/${product.id}`);
     }
 
     editProduct(product) {
-        console.log(`editing product ${product.id}`);
         hashHistory.push(`/products/${product.id}/edit`);
     }
 
     render() {
-        let {products, current, children, onEditClick, onDeleteClick} = this.props;
+        let {products } = this.props;
         let tableFields = [
             { name: 'name', header: "Name" },
             { name: 'description', header: "Description" },
@@ -82,7 +80,6 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = (state, ownState) => {
-    console.log(state)
     return {
         products: state.products.all
     }

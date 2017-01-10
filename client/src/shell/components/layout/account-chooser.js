@@ -11,18 +11,15 @@ class AccountChooser extends Component {
     }
 
     componentWillReceiveProps() {
-        console.log(this.props.app);
         if (this.props.app.selectedAccount) {
             hashHistory.transitionTo('dashboard');
         }
     }
 
     render() {
-        console.log(this.props);
         let {onAcccountSelected, app} = this.props;
         let accounts;
         if (app.profile) {
-            console.log('we have a profile')
             accounts = app.profile.accounts.map((x, idx) => {
                 return <a key={idx} href="" onClick={() => onAcccountSelected(x)} className="btn btn-primary"> {x.organization_name} </a>
             });

@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 // import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { sagas } from './sagas';

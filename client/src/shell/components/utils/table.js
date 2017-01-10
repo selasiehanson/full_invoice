@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 
-export default class Table extends Component {
-
-    constructor() {
-        super();
-    }
+export default class Table extends Component {    
 
     actionClicked(data, event) {
         try {
-            console.log(data);
             this.props.handleEvent(data.action, data.data);
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
 
         event.preventDefault();
@@ -82,18 +77,13 @@ export default class Table extends Component {
     render() {
         let {
             tableData = [],
-            handleSubmit,
-            onSearchSubmitted,
-            pageChanged,
-            tableFields = [],
-            total,
-            pageIndex,
+            tableFields = [],                    
             columnWrappers
         } = this.props;
 
         let actionCols =
             tableFields
-                .filter(x => x.type == 'action');
+                .filter(x => x.type === 'action');
 
         let headers = this.renderHeaders(tableFields, actionCols);
         let rows = this.renderRows(tableData, actionCols, tableFields, columnWrappers);

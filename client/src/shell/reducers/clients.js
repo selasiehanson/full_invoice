@@ -1,9 +1,7 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     CLIENTS_SHOW_NEW,
     SAGA_ADD_CLIENT_SUCCESS,
     CLIENTS_EDIT,
-    CLIENTS_DELETE,
     SAGA_FETCH_CLIENTS_SUCCESS,
     CLIENT_CACHE,
     SAGA_GET_CLIENT_SUCCESS
@@ -19,7 +17,6 @@ const initialState = {
 };
 
 const clients = (state = initialState, action) => {
-    //console.log(action)
     switch (action.type) {
         case SAGA_FETCH_CLIENTS_SUCCESS:
             return { ...state, all: action.clients, afterSave: false }

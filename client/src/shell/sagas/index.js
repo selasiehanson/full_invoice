@@ -1,5 +1,4 @@
-
-import { takeLatest, takeEvery } from 'redux-saga';
+import { takeLatest } from 'redux-saga';
 import { fork } from 'redux-saga/effects';
 import { clientsFetchList, addClient, getClient, updateClient } from './clients';
 import { productsFetchList, addProduct, getProduct, updateProduct } from './products';

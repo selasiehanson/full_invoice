@@ -23,17 +23,15 @@ class TaxList extends Component {
     }
 
     viewTax(tax) {
-        console.log(`viewing tax ${tax.id}`);
         hashHistory.push(`/taxes/${tax.id}`);
     }
 
     editTax(tax) {
-        console.log(`editing tax ${tax.id}`)
         hashHistory.push(`/taxes/${tax.id}/edit`);
     }
 
     render() {
-        let {taxes, current, children, onEditClick, onDeleteClick} = this.props;
+        let {taxes} = this.props;
         let tableFields = [
             { name: 'name', header: "Name" },
             { name: "amount", header: "Amount" },

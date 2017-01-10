@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { reduxForm, Field } from 'redux-form';
-import { renderInput, renderCheckbox, renderRadio } from '../utils/forms';
+import { renderInput, renderCheckbox } from '../utils/forms';
 import { connect } from 'react-redux';
 import { addProduct, cacheProduct, getProduct, showNewProduct } from '../../actions/products';
 import { hashHistory } from 'react-router';
@@ -89,7 +89,6 @@ class ProductContainer extends Component {
     }
 
     shouldComponentUpdate() {
-        console.log(this.props)
         if (this.props.afterSave) {
             this.goToProducts();
             return false;
@@ -140,11 +139,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(showNewProduct())
         },
         onAddProduct(product) {
-            console.log(product)
-            console.log('adding a product')
             dispatch(cacheProduct(product));
             dispatch(addProduct(product));
-            console.log('after dispatch')
         }
     }
 }

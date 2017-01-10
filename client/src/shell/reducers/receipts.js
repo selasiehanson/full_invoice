@@ -22,7 +22,6 @@ const receipts = (state = initialState, action) => {
         case SAGA_ADD_RECEIPT_SUCCESS:
             var all = [action.receipt].concat(state.all);
             let current = action.receipt;
-            console.log("added")
             return {...state, all, current, editMode: '', afterSave: true };
 
         case SAGA_UPDATE_RECEIPT_SUCCESS:

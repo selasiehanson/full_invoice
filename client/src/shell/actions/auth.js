@@ -1,6 +1,5 @@
 import {
     SAGA_LOGIN,
-    SAGA_SIGNUP,
     GET_APP_STATE,
     SIGN_OUT
 } from '../constants';

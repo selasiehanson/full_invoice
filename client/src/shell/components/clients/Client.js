@@ -75,7 +75,6 @@ class ClientContainer extends Component {
     }
 
     shouldComponentUpdate() {
-        console.log(this.props)
         if (this.props.afterSave) {
             this.goToClients();
             return false;
@@ -125,11 +124,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(showNewClient())
         },
         onAddClient(client) {
-            console.log(client)
-            console.log('adding a client')
             dispatch(cacheClient(client));
-            dispatch(addClient(client));
-            console.log('after dispatch')
+            dispatch(addClient(client));            
         }
     }
 }

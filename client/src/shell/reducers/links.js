@@ -1,5 +1,3 @@
-import { INIT_LINK } from '../constants';
-
 const initialState = {
     all: [
         {

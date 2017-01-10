@@ -4,9 +4,6 @@ import {
     SAGA_FETCH_CURRENCIES_SUCCESS
 } from '../constants';
 
-const CLIENTS = 'clients';
-
-
 export function* fetchCurrencies (action) {
     //call api to get the users
 

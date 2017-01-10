@@ -22,17 +22,15 @@ class ClientList extends Component {
     }
 
     viewClient(client) {
-        console.log(`viewing client ${client.id}`)
         hashHistory.push(`/clients/${client.id}`);
     }
 
     editClient(client) {
-        console.log(`editing client ${client.id}`);
         hashHistory.push(`/clients/${client.id}/edit`);
     }
 
     render() {
-        let {clients, current, children, onEditClick, onDeleteClick} = this.props;
+        let {clients} = this.props;
         let tableFields = [
             { name: 'name', header: "Name" },
             { name: "email", header: "Email" },

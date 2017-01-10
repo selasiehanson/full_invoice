@@ -1,4 +1,3 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     SAGA_FETCH_CURRENCIES_SUCCESS
 } from '../constants';

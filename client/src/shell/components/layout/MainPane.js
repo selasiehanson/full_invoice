@@ -12,7 +12,7 @@ const MainPane = (props) => {
         <div>
             <NotificationPanel dispatch={dispatch} notification={notification} />
             <div className={klasses}>                
-                {props.children}
+                {children}
             </div>
         </div>
     )

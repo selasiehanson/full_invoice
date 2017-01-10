@@ -8,12 +8,8 @@ const Receipts = (props) => {
     let amounts = receipts.map(x => x.amount);
     let total = amounts.reduceRight((prev, curr) => {
         return prev + curr
-    },
-        0);
+    },0);
 
-    console.log(total)
-
-    console.log(amounts)
     //tround to 2dp
     total = total.toFixed(2);
     var rows = receipts.map((receipt, idx) => {

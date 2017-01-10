@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
+// import { Link } from 'react-router';
+// import { connect } from 'react-redux';
 
 
 const Header = (props) => {
     const {appName} = props.header;
-    console.log(props)
     const {logout, toggleSideBar} = props
     let organizationView;
     if (props.app.selectedAccount) {

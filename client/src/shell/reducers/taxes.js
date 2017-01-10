@@ -1,9 +1,8 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+// import { LOCATION_CHANGE } from 'react-router-redux';
 import {
     TAXES_SHOW_NEW,
     SAGA_ADD_TAX_SUCCESS,
     TAXES_EDIT,
-    TAXES_DELETE,
     SAGA_FETCH_TAXES_SUCCESS,
     TAX_CACHE,
     SAGA_GET_TAX_SUCCESS
@@ -20,7 +19,6 @@ const initialState = {
 };
 
 const taxes = (state = initialState, action) => {
-    //console.log(action)
     switch (action.type) {
         case SAGA_FETCH_TAXES_SUCCESS:
             return { ...state, all: action.taxes, afterSave: false }

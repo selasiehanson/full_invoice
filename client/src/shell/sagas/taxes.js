@@ -4,9 +4,7 @@ import {
     SAGA_FETCH_TAXES_SUCCESS,
     SAGA_GET_TAX_SUCCESS,
     SAGA_ADD_TAX_SUCCESS,
-    SAGA_UPDATE_TAX_SUCCESS,
-    MSG_TAX_CREATE_SUCCESS,
-    SHOW_NOTIFICATION
+    SAGA_UPDATE_TAX_SUCCESS,    
 } from '../constants';
 import {showTaxCreatedMsg} from '../actions/taxes';
 const TAXES = 'taxes';

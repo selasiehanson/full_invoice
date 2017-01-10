@@ -4,9 +4,7 @@ import {
     SAGA_FETCH_CLIENTS_SUCCESS,
     SAGA_GET_CLIENT_SUCCESS,
     SAGA_ADD_CLIENT_SUCCESS,
-    SAGA_UPDATE_CLIENT_SUCCESS,
-    MSG_CLIENT_CREATE_SUCCESS,
-    SHOW_NOTIFICATION
+    SAGA_UPDATE_CLIENT_SUCCESS    
 } from '../constants';
 import {showClientCreatedMsg} from '../actions/clients';
 const CLIENTS = 'clients';

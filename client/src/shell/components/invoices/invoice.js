@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import DatePicker from 'react-datepicker';
-import Select from 'react-select';
 import { Link } from 'react-router';
 import {
     renderInput,
-    renderCheckbox,
-    renderRadio,
     renderDate,
     renderSelect
 } from '../utils/forms';
@@ -16,9 +11,7 @@ import { getProducts } from '../../actions/products';
 import { getClients } from '../../actions/clients';
 import { addInvoice, cacheInvoice, getInvoice, showNewInvoice } from '../../actions/invoices';
 import { getCurrencies } from '../../actions';
-import { hashHistory } from 'react-router';
 import _ from 'lodash';
-
 
 const validate = (values) => {
     const errors = {};
@@ -27,10 +20,8 @@ const validate = (values) => {
 }
 
 const renderLineItems = (props) => {
-    console.log(props);
     let {fields, products} = props;
     const addLine = () => {
-        console.log('adding a line')
         let newItem = {
             item_id: 0,
             description: "",
@@ -61,10 +52,10 @@ const renderLineItems = (props) => {
                 </td>
 
                 <td>
-                    <Field name={`${line}.tax`} component={renderInput} className="input-sm tright" />
+                    <Field  name={`${line}.tax`} component={renderInput} className="input-sm tright" />
                 </td>
                 <td>
-                    <Field name={`${line}.line_total`} component={renderInput} className="input-sm tright" />
+                    <Field name={`${line}.line_total`} component={renderInput} className="input-sm tright"  disabled={true}/>
                 </td>
                 <td>
                     <a onClick={() => fields.remove(idx)}> <i className="fa fa-trash"></i> </a>
@@ -105,10 +96,6 @@ const renderLineItems = (props) => {
 
 class Form extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     handleChange(date) {
 
     }
@@ -125,7 +112,7 @@ class Form extends Component {
     }
 
     renderInvoiceHeader() {
-
+    
         return (
             <div className="row">
                 <div className="col-md-3">
@@ -133,7 +120,7 @@ class Form extends Component {
                 </div>
                 <div className="col-md-3">
                     <Field name="due_date" component={renderDate} placeholder="Due Date" />
-                </div>
+                </div>                
                 <div className="col-md-3">
                     <Field name="client" component={renderSelect} placeholder="Client" options={this.props.clients} />
                 </div>
@@ -144,11 +131,11 @@ class Form extends Component {
         );
     }
 
-    renderInvoicerFooter() {
+    renderInvoicerFooter() {        
         return (
             <div>
                 <div className="summing-box clearfix">
-                    <div className="row">
+                    <div className="row">                        
                         <div className="col-sm-3 pull-right">
                             <Field name="currency"
                                 component={renderSelect}
@@ -159,20 +146,20 @@ class Form extends Component {
                     </div>
                     <div className="row">
                         <div className="col-sm-3 pull-right">
-                            <label for="">Tax amount: </label>
-                            <label className="pull-right"> $ 45.00 </label>
+                            <label>Tax amount: </label>
+                            <label className="pull-right"> {this.getTotalTax() } </label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-sm-3 pull-right">
-                            <label for="">Sub Total: </label>
-                            <label className="pull-right"> $ 1700.00 </label>
+                            <label>Sub Total: </label>
+                            <label className="pull-right"> {this.getTotalAmount() - this.getTotalTax()} </label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-sm-3 pull-right total-box">
-                            <label for="">Total: </label>
-                            <label className="pull-right"> $ 1745.00 </label>
+                            <label>Total: </label>
+                            <label className="pull-right"> {this.getTotalAmount() } </label>
                         </div>
                     </div>
                 </div>
@@ -180,14 +167,52 @@ class Form extends Component {
         );
     }
 
+    getTotalAmount() {
+        if(!this.props)
+            return "";
+        if(!this.props.form)
+            return '';
+        if(!this.props.form.invoice)
+            return  '';
+        let currencyCode = this.props.form.invoice.currency.currency_code;
+        if(this.props.initialValues) {
+            return `${currencyCode} ${this.props.total_amount}`;
+        }else {
+            //compute me
+            var total = this.form.invoice.invoice_lines.reduce((result, line) => {
+            result += (line.price * line.quantity)
+            },0);
+            return `${currencyCode} ${total}`;
+        }
+    }
+
+    getTotalTax () {
+        if(!this.props)
+            return "";
+        if(!this.props.form)
+            return '';
+        if(!this.props.form.invoice)
+            return  '';
+        let currencyCode = this.props.form.invoice.currency.currency_code;
+        if(this.props.initialValues) {
+            return `${currencyCode} 0`;
+        }else {
+            //compute me
+            return `${currencyCode} 0`;
+        }
+    }
+
     render() {
 
-        let {handleSubmit, saveInvoice, pristine, submitting, products, clients} = this.props;
+        let {handleSubmit, saveInvoice, pristine, submitting, products} = this.props;
         let actionLinks = <span className="pull-right">
             <Link to="/invoices" className="btn btn-default"> Cancel </Link>
             <button type="submit" className="btn btn-success" disabled={pristine || submitting}> Create invoice </button>
         </span>;
-
+        
+        let options = ["apple", "mango", "grapes", "melon", "strawberry"].map(function(fruit){
+                return {label: fruit, value: fruit}
+            });
         return (
             <div className="invoice">
                 <div className="content-header">
@@ -243,6 +268,44 @@ class InvoiceContainer extends Component {
 }
 
 
+const transformInvoiceToPersist = (invoice) => {
+    invoice.client_id = invoice.client.id;
+    invoice.currency_id = invoice.currency.id;
+    invoice.invoice_lines = invoice.invoice_lines.map((line) => {
+        line.product_id = line.product.id;
+        return line;
+    });
+    return invoice;
+}
+
+const convertFromInvoiceToForm = (invoiceJson) => {
+    console.log(invoiceJson)
+    if (!invoiceJson)
+        return null;
+
+    let form = Object.assign({}, invoiceJson );
+    form.client = {
+        label : invoiceJson.client.name,
+        value : invoiceJson.client.id
+    };
+    form.invoice_lines  = invoiceJson.invoice_lines.map((line) => {
+        let modifiedLine = Object.assign({}, line);
+        modifiedLine.product = {
+            label: line.product.name, 
+            value: line.product.id
+        };
+        return modifiedLine;
+    });
+    form.currency = {
+        label : invoiceJson.currency.currency_code,
+        value : invoiceJson.currency.id
+    };
+
+    console.log(form)
+    return form;
+}
+
+
 const mapStateToProps = (state, ownProps) => {
     return {
         ...ownProps,
@@ -250,7 +313,7 @@ const mapStateToProps = (state, ownProps) => {
         clients: state.clients.all,
         products: state.products.all,
         currencies: state.currencies.all,
-        initialValues: state.invoices.current
+        initialValues: convertFromInvoiceToForm(state.invoices.current)
     }
 }
 
@@ -274,24 +337,12 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(showNewInvoice())
         },
         saveInvoice(invoice) {
-            console.log(invoice)
-            console.log('adding a invoice')
             dispatch(cacheInvoice(invoice));
-            dispatch(addInvoice(transformInvoiceToPersist(invoice)));
-            console.log('after dispatch');
+            dispatch(addInvoice(transformInvoiceToPersist(invoice)));            
         }
     }
 }
 
-const transformInvoiceToPersist = (invoice) => {
-    invoice.client_id = invoice.client.id;
-    invoice.currency_id = invoice.currency.id;
-    invoice.invoice_lines = invoice.invoice_lines.map((line) => {
-        line.product_id = line.product.id;
-        return line;
-    });
-    return invoice;
-}
 
 const Invoice = connect(mapStateToProps, mapDispatchToProps)(InvoiceContainer)
 export default Invoice;

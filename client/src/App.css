@@ -265,6 +265,18 @@ main {
 
 
 /*Overrides*/
+.react-selectize.root-node {
+  width: 100% !important;
+}
+
+.react-selectize.root-node .react-selectize-control {
+  padding: 1px !important; 
+}
+
+.react-selectize.root-node .react-selectize-control .react-selectize-search-field-and-selected-values .resizable-input {
+  margin: 0px !important;
+}
+
 .bg-success {
   background: #34c73b !important;
 }

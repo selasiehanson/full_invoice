@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router';
 
 const Links = (prop) => {
     let link = null;
-    if(prop.mode == 'signin') {
+    if(prop.mode === 'signin') {
         link = <Link to="/signup"> Sign up </Link>;
     }
 
-    if(prop.mode == 'signup') {
+    if(prop.mode === 'signup') {
         link = <Link to="/signin"> Sign in </Link>;
     }
     
