@@ -2,6 +2,7 @@ import {
     SAGA_FETCH_INVOICES_SUCCESS,
     SAGA_ADD_INVOICE_SUCCESS,
     SAGA_UPDATE_INVOICE_SUCCESS,
+    INVOICE_LOADING,
     SAGA_GET_INVOICE_SUCCESS,
     INVOICES_SHOW_NEW
 } from '../constants';
@@ -9,10 +10,11 @@ import { dateHelpers } from '../utils/date-helpers';
 
 const initialState = {
     editMode: "",
-    current: null,
+    current: {},
     all: [],
     original: [],
-    afterSave: false
+    afterSave: false,
+    isLoading: false
 }
 
 const invoices = (state = initialState, action) => {
@@ -28,7 +30,7 @@ const invoices = (state = initialState, action) => {
                 newInvoice.total_tax = `${newInvoice.currency.currency_code} ${newInvoice.total_tax}`;
                 return newInvoice;
             });
-            return { ...state, all: invoices, afterSave: false, original: old }
+            return { ...state, all: invoices, afterSave: false, original: old, current: {} }
 
         case INVOICES_SHOW_NEW:
             return { ...state, current: {} }
@@ -38,8 +40,11 @@ const invoices = (state = initialState, action) => {
             let current = action.invoice;
             return { ...state, all: newInvoices, current, editMode: '', afterSave: true };
 
+        case INVOICE_LOADING:
+            return { ...state, isLoading: true }
+
         case SAGA_GET_INVOICE_SUCCESS:
-            return { ...state, current: action.invoice }
+            return { ...state, current: action.invoice, isLoading: false }
 
 
         case SAGA_UPDATE_INVOICE_SUCCESS:

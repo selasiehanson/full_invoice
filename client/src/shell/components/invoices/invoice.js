@@ -5,11 +5,11 @@ import {
     renderDate,
     renderSelect
 } from '../utils/forms';
-import { reduxForm, Field, FieldArray } from 'redux-form';
+import { reduxForm, Field, FieldArray, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { getProducts } from '../../actions/products';
 import { getClients } from '../../actions/clients';
-import { addInvoice, cacheInvoice, getInvoice, showNewInvoice } from '../../actions/invoices';
+import { addInvoice, cacheInvoice, getInvoice, showNewInvoice, setInvoiceLoading } from '../../actions/invoices';
 import { getCurrencies } from '../../actions';
 import _ from 'lodash';
 
@@ -52,10 +52,10 @@ const renderLineItems = (props) => {
                 </td>
 
                 <td>
-                    <Field  name={`${line}.tax`} component={renderInput} className="input-sm tright" />
+                    <Field name={`${line}.tax`} component={renderInput} className="input-sm tright" />
                 </td>
                 <td>
-                    <Field name={`${line}.line_total`} component={renderInput} className="input-sm tright"  disabled={true}/>
+                    <Field name={`${line}.line_total`} component={renderInput} className="input-sm tright" disabled={true} />
                 </td>
                 <td>
                     <a onClick={() => fields.remove(idx)}> <i className="fa fa-trash"></i> </a>
@@ -112,7 +112,7 @@ class Form extends Component {
     }
 
     renderInvoiceHeader() {
-    
+
         return (
             <div className="row">
                 <div className="col-md-3">
@@ -120,7 +120,7 @@ class Form extends Component {
                 </div>
                 <div className="col-md-3">
                     <Field name="due_date" component={renderDate} placeholder="Due Date" />
-                </div>                
+                </div>
                 <div className="col-md-3">
                     <Field name="client" component={renderSelect} placeholder="Client" options={this.props.clients} />
                 </div>
@@ -131,11 +131,11 @@ class Form extends Component {
         );
     }
 
-    renderInvoicerFooter() {        
+    renderInvoicerFooter() {
         return (
             <div>
                 <div className="summing-box clearfix">
-                    <div className="row">                        
+                    <div className="row">
                         <div className="col-sm-3 pull-right">
                             <Field name="currency"
                                 component={renderSelect}
@@ -147,19 +147,19 @@ class Form extends Component {
                     <div className="row">
                         <div className="col-sm-3 pull-right">
                             <label>Tax amount: </label>
-                            <label className="pull-right"> {this.getTotalTax() } </label>
+                            <label className="pull-right"> {this.getCurrency()} {this.getTotalTax()} </label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-sm-3 pull-right">
                             <label>Sub Total: </label>
-                            <label className="pull-right"> {this.getTotalAmount() - this.getTotalTax()} </label>
+                            <label className="pull-right"> {this.getCurrency()} {this.getTotalAmount() - this.getTotalTax()} </label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-sm-3 pull-right total-box">
                             <label>Total: </label>
-                            <label className="pull-right"> {this.getTotalAmount() } </label>
+                            <label className="pull-right"> {this.getCurrency()} {this.getTotalAmount()} </label>
                         </div>
                     </div>
                 </div>
@@ -167,39 +167,48 @@ class Form extends Component {
         );
     }
 
-    getTotalAmount() {
-        if(!this.props)
-            return "";
-        if(!this.props.form)
+    getCurrency() {
+        if (this.modelNotSet()) {
             return '';
-        if(!this.props.form.invoice)
-            return  '';
-        let currencyCode = this.props.form.invoice.currency.currency_code;
-        if(this.props.initialValues) {
-            return `${currencyCode} ${this.props.total_amount}`;
-        }else {
-            //compute me
-            var total = this.form.invoice.invoice_lines.reduce((result, line) => {
-            result += (line.price * line.quantity)
-            },0);
-            return `${currencyCode} ${total}`;
         }
+
+        if (this.props.currentInvoiceForm.values.currency) {
+            return this.props.currentInvoiceForm.values.currency.label;
+        }
+        return '';
     }
 
-    getTotalTax () {
-        if(!this.props)
-            return "";
-        if(!this.props.form)
+    getTotalAmount() {
+        if (this.modelNotSet()) {
             return '';
-        if(!this.props.form.invoice)
-            return  '';
-        let currencyCode = this.props.form.invoice.currency.currency_code;
-        if(this.props.initialValues) {
-            return `${currencyCode} 0`;
-        }else {
-            //compute me
-            return `${currencyCode} 0`;
         }
+
+        let {invoice_lines = []} = this.props.currentInvoiceForm.values;
+        var total = invoice_lines.reduce((result, line) => {
+            result += (+line.price * line.quantity)
+            return result;
+        }, 0);
+
+        return total;
+    }
+
+    modelNotSet() {
+        if (_.isEqual(this.props.currentInvoiceForm, {})) {
+            return true;
+        }
+
+        if (!_.keys(this.props.currentInvoiceForm).includes('values')) {
+            return true;
+        }
+        return false;
+    }
+
+    getTotalTax() {
+        if (this.modelNotSet()) {
+            return '';
+        }
+        //todo: actual tax computation to come later
+        return 0;
     }
 
     render() {
@@ -209,10 +218,10 @@ class Form extends Component {
             <Link to="/invoices" className="btn btn-default"> Cancel </Link>
             <button type="submit" className="btn btn-success" disabled={pristine || submitting}> Create invoice </button>
         </span>;
-        
-        let options = ["apple", "mango", "grapes", "melon", "strawberry"].map(function(fruit){
-                return {label: fruit, value: fruit}
-            });
+
+        let options = ["apple", "mango", "grapes", "melon", "strawberry"].map(function (fruit) {
+            return { label: fruit, value: fruit }
+        });
         return (
             <div className="invoice">
                 <div className="content-header">
@@ -283,22 +292,22 @@ const convertFromInvoiceToForm = (invoiceJson) => {
     if (!invoiceJson)
         return null;
 
-    let form = Object.assign({}, invoiceJson );
+    let form = Object.assign({}, invoiceJson);
     form.client = {
-        label : invoiceJson.client.name,
-        value : invoiceJson.client.id
+        label: invoiceJson.client.name,
+        value: invoiceJson.client.id
     };
-    form.invoice_lines  = invoiceJson.invoice_lines.map((line) => {
+    form.invoice_lines = invoiceJson.invoice_lines.map((line) => {
         let modifiedLine = Object.assign({}, line);
         modifiedLine.product = {
-            label: line.product.name, 
+            label: line.product.name,
             value: line.product.id
         };
         return modifiedLine;
     });
     form.currency = {
-        label : invoiceJson.currency.currency_code,
-        value : invoiceJson.currency.id
+        label: invoiceJson.currency.currency_code,
+        value: invoiceJson.currency.id
     };
 
     console.log(form)
@@ -307,13 +316,28 @@ const convertFromInvoiceToForm = (invoiceJson) => {
 
 
 const mapStateToProps = (state, ownProps) => {
+
+    let invoiceForm = {};
+    if (state.invoices.isLoading) {
+        invoiceForm = {}
+    } else {
+        if (_.isEqual(state.invoices.current, {})) {
+            invoiceForm = null;
+        } else {
+            invoiceForm = convertFromInvoiceToForm(state.invoices.current)
+            console.log(invoiceForm)
+        }
+    }
+
+    console.log(state)
     return {
         ...ownProps,
         ...state.invoices,
         clients: state.clients.all,
         products: state.products.all,
         currencies: state.currencies.all,
-        initialValues: convertFromInvoiceToForm(state.invoices.current)
+        initialValues: invoiceForm,
+        currentInvoiceForm: state.form.invoice || {}
     }
 }
 
@@ -331,6 +355,7 @@ const mapDispatchToProps = (dispatch) => {
             //dispatch(deleteContact(id))
         },
         getInvoice(id) {
+            dispatch(setInvoiceLoading())
             dispatch(getInvoice(id));
         },
         showNewInvoice() {
@@ -338,7 +363,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         saveInvoice(invoice) {
             dispatch(cacheInvoice(invoice));
-            dispatch(addInvoice(transformInvoiceToPersist(invoice)));            
+            dispatch(addInvoice(transformInvoiceToPersist(invoice)));
         }
     }
 }

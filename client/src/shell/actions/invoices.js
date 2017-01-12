@@ -7,7 +7,8 @@ import {
     MSG_INVOICE_CREATE_SUCCESS,
     SHOW_NOTIFICATION,
     SAGA_GET_INVOICE,
-    INVOICES_SHOW_NEW
+    INVOICES_SHOW_NEW,
+    INVOICE_LOADING
 } from '../constants';
 
 export const getInvoices = () => {
@@ -25,6 +26,10 @@ export const addInvoice = (invoice) => {
 
 export const getInvoice = (id) => {
     return { type: SAGA_GET_INVOICE, id }
+}
+
+export const setInvoiceLoading = () => {
+    return { type: INVOICE_LOADING };
 }
 
 export const showNewInvoice = () => {
